@@ -4,10 +4,13 @@ import instruments.logic.Service;
 import instruments.logic.TipoInstrumento;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumnModel;
 import java.awt.event.*;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.event.ListSelectionEvent;
+
 
 public class View implements Observer {
     private JPanel panel;
@@ -40,11 +43,13 @@ public class View implements Observer {
                 }
             }
         });
-        list.addMouseListener(new MouseAdapter() {
+        delete.setEnabled(false); // Inhabilita el botón al inicio
+
+        list.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                int row = list.getSelectedRow();
-                controller.edit(row);
+            public void valueChanged(ListSelectionEvent e) {
+                int selectedRowCount = list.getSelectedRowCount();
+                delete.setEnabled(selectedRowCount > 0); // Habilita o inhabilita según la selección
             }
         });
 
@@ -55,15 +60,16 @@ public class View implements Observer {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int row = list.getSelectedRow();
-                TipoInstrumento tipoInstrumento = model.current;
-
-
-                try {
-                    Service.instance().delete(tipoInstrumento);
-                } catch (Exception ex) {
-                    throw new RuntimeException(ex);
+                if (row >= 0) {
+                    TipoInstrumento tipoInstrumento = model.current;
+                    try {
+                        Service.instance().delete(tipoInstrumento);
+                    } catch (Exception ex) {
+                        throw new RuntimeException(ex);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(panel, "No item selected.", "Warning", JOptionPane.WARNING_MESSAGE);
                 }
-
             }
         });
         save.addActionListener(new ActionListener() {
