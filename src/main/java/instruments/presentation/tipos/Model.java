@@ -17,11 +17,12 @@ public class Model extends java.util.Observable{
         commit();
     }
 
-    public void commit(){
+    public void commit() {
         setChanged();
         notifyObservers(changedProps);
         changedProps = NONE;
     }
+
 
     public Model() {
     }
@@ -53,6 +54,17 @@ public class Model extends java.util.Observable{
         changedProps |= LIST;
         commit();
     }
+
+    public void enableEditing() {
+        setChanged();
+        notifyObservers(CURRENT); // Notifica a los observadores sobre el cambio en "current"
+    }
+    public void update(TipoInstrumento tipoInstrumento) {
+        list.replaceAll(i -> i.getCodigo().equals(tipoInstrumento.getCodigo()) ? tipoInstrumento : i);
+        setChanged();
+        notifyObservers(LIST); // Notifica a los observadores sobre el cambio en la lista
+    }
+
 
     public static int NONE=0;
     public static int LIST=1;

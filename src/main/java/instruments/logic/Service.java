@@ -20,12 +20,19 @@ public class Service {
     }
 
     //================= TIPOS DE INSTRUMENTO ============
-    public void create(TipoInstrumento e) throws Exception{
+    public void create(TipoInstrumento e) throws Exception {
         TipoInstrumento result = data.getTipos().stream()
-                .filter(i->i.getCodigo().equals(e.getCodigo())).findFirst().orElse(null);
-        if (result==null) data.getTipos().add(e);
-        else throw new Exception("Tipo ya existe");
+                .filter(i -> i.getCodigo().equals(e.getCodigo()))
+                .findFirst()
+                .orElse(null);
+        if (result == null) {
+            data.getTipos().add(e);
+        } else {
+            throw new Exception("Tipo ya existe");
+        }
+
     }
+
 
     public TipoInstrumento read(TipoInstrumento e) throws Exception{
         TipoInstrumento result = data.getTipos().stream()
@@ -55,5 +62,7 @@ public class Service {
                 .sorted(Comparator.comparing(TipoInstrumento::getNombre))
                 .collect(Collectors.toList());
     }
+
+
 
  }

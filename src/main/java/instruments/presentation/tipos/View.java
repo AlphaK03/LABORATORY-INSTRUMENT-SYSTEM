@@ -35,7 +35,12 @@ public class View implements Observer {
     private JLabel codigoLbl;
     private JLabel nombreLbl;
     private JLabel unidadLbl;
+    private JPanel panel3;
+    private JPanel panel4;
     private JPanel panel2;
+    private JComboBox comboBox1;
+    private JScrollPane tableModel2;
+    private JTable list2;
 
     public View() {
         search.addActionListener(new ActionListener() {
@@ -60,6 +65,17 @@ public class View implements Observer {
             }
         });
 
+        list.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                int selectedRow = list.getSelectedRow();
+                if (selectedRow >= 0) {
+                    controller.edit(selectedRow); // Llama al método edit del controlador
+                }
+            }
+        });
+
+
 
 
 
@@ -77,6 +93,7 @@ public class View implements Observer {
                 } else {
                     JOptionPane.showMessageDialog(panel, "No item selected.", "Warning", JOptionPane.WARNING_MESSAGE);
                 }
+                codigo.setEnabled(true);
             }
         });
         save.addActionListener(new ActionListener() {
@@ -87,19 +104,33 @@ public class View implements Observer {
                 tipoInstrumento.setNombre(nombre.getText());
                 tipoInstrumento.setUnidad(unidad.getText());
 
-                Service service = Service.instance();
                 try {
-                    service.create(tipoInstrumento);
+                    if(codigo.isEnabled()){
+                        controller.create(tipoInstrumento);
+                        model.update(tipoInstrumento);
 
+                    }else {
+                        controller.update(tipoInstrumento); // Llama al método update del controlador
+                    }
+                    codigo.setEnabled(true);
                 } catch (Exception ex) {
-                    throw new RuntimeException(ex);
+                    JOptionPane.showMessageDialog(panel, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
+
             }
         });
+
+
+
+
         clear.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                    codigo.setText("");
+                    nombre.setText("");
+                    unidad.setText("");
+                    delete.setEnabled(false);
+                    codigo.setEnabled(true);
             }
         });
     }
@@ -130,6 +161,7 @@ public class View implements Observer {
             TableColumnModel columnModel = list.getColumnModel();
             columnModel.getColumn(2).setPreferredWidth(200);
         }
+
         if ((changedProps & Model.CURRENT) == Model.CURRENT) {
             codigo.setText(model.getCurrent().getCodigo());
             nombre.setText(model.getCurrent().getNombre());
@@ -137,4 +169,14 @@ public class View implements Observer {
         }
         this.panel.revalidate();
     }
+
+    public void enableEditing() {
+        codigo.setEnabled(false); // Deshabilita la edición del campo "Código"
+        delete.setEnabled(true); // Habilita el botón de "Borrar"
+        // Actualiza los campos de texto con los valores del tipo de instrumento actual
+        codigo.setText(model.getCurrent().getCodigo());
+        nombre.setText(model.getCurrent().getNombre());
+        unidad.setText(model.getCurrent().getUnidad());
+    }
+
 }

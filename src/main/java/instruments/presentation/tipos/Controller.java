@@ -27,17 +27,33 @@ public class Controller{
         model.commit();
     }
 
-    public void edit(int row){
-        TipoInstrumento e = model.getList().get(row);
-        try {
-            model.setCurrent(Service.instance().read(e));
-            model.commit();
-        } catch (Exception ex) {}
+    public void edit(int row) {
+        TipoInstrumento selectedInstrumento = model.getList().get(row);
+        model.setCurrent(selectedInstrumento); // Establece el instrumento seleccionado como "current"
+        view.enableEditing(); // Activa la edición en la vista
     }
+
 
     public void delete(TipoInstrumento tipoInstrumento) throws Exception {
         Service.instance().delete(tipoInstrumento);
         model.delete(tipoInstrumento);
     }
+
+    public void create(TipoInstrumento tipoInstrumento) {
+        try {
+            Service.instance().create(tipoInstrumento);
+            model.getList().add(tipoInstrumento); // Agregar el nuevo registro a la lista del modelo
+            model.commit(); // Notificar a la vista que la lista ha cambiado
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+
+    }
+
+    public void update(TipoInstrumento tipoInstrumento) throws Exception {
+        Service.instance().update(tipoInstrumento); // Actualiza el registro en la capa de lógica
+        model.update(tipoInstrumento); // Actualiza el registro en el modelo
+    }
+
 
 }
