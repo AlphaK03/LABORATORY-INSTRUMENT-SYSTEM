@@ -1,12 +1,18 @@
 package instruments.presentation.tipos;
+import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
 import java.io.FileOutputStream;
+
+import com.itextpdf.layout.properties.TextAlignment;
+import instruments.Application;
 import instruments.logic.Service;
 import instruments.logic.TipoInstrumento;
 import java.util.List;
+import java.util.Objects;
 
 public class Controller{
     View view;
@@ -26,7 +32,14 @@ public class Controller{
         PdfDocument pdfDocument = new PdfDocument(new PdfWriter(new FileOutputStream(outputFilePath)));
         Document document = new Document(pdfDocument);
 
-        document.add(new Paragraph("Reporte de Tipos de Instrumento"));
+        Image img = new Image(ImageDataFactory.create(Objects.requireNonNull(Application.class.getResource("presentation/icons/pdf (1).png"))));
+        document.add(img);
+
+        Paragraph title = new Paragraph("Reporte de Tipos de Instrumento")
+                .setTextAlignment(TextAlignment.CENTER)
+                .setBold()
+                .setFontSize(24); // Tamaño de letra más grande para el título
+        document.add(title);
 
         for (TipoInstrumento tipo : tipos) {
             document.add(new Paragraph("Código: " + tipo.getCodigo()));
