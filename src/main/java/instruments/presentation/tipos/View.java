@@ -19,16 +19,23 @@ public class View implements Observer {
     private JButton save;
     private JTable list;
     private JButton delete;
-    private JLabel searchNombreLbl;
-    private JButton report;
     private JTextField codigo;
     private JTextField nombre;
     private JTextField unidad;
+    private JButton clear;
+
+    public JTabbedPane getTabbedPane1() {
+        return tabbedPane1;
+    }
+
+    private JTabbedPane tabbedPane1;
+    private JLabel searchNombreLbl;
+    private JButton report;
+    private JScrollPane tableModel;
     private JLabel codigoLbl;
     private JLabel nombreLbl;
     private JLabel unidadLbl;
-    private JButton clear;
-    private JScrollPane tableModel;
+    private JPanel panel2;
 
     public View() {
         search.addActionListener(new ActionListener() {
