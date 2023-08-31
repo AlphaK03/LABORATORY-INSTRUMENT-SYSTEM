@@ -61,9 +61,9 @@ public class View implements Observer {
             public void actionPerformed(ActionEvent e) {
                 int row = list.getSelectedRow();
                 if (row >= 0) {
-                    TipoInstrumento tipoInstrumento = model.current;
+                    TipoInstrumento tipoInstrumento = model.getList().get(row);
                     try {
-                        Service.instance().delete(tipoInstrumento);
+                        controller.delete(tipoInstrumento);
                     } catch (Exception ex) {
                         throw new RuntimeException(ex);
                     }

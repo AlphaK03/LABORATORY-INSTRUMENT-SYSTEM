@@ -47,7 +47,15 @@ public class Model extends java.util.Observable{
         this.current = current;
     }
 
+    public void delete(TipoInstrumento tipoInstrumento) {
+        list.remove(tipoInstrumento);
+        setCurrent(new TipoInstrumento());
+        changedProps |= LIST;
+        commit();
+    }
+
     public static int NONE=0;
     public static int LIST=1;
     public static int CURRENT=2;
+
 }

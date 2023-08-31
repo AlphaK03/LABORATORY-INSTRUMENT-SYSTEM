@@ -34,4 +34,10 @@ public class Controller{
             model.commit();
         } catch (Exception ex) {}
     }
+
+    public void delete(TipoInstrumento tipoInstrumento) throws Exception {
+        Service.instance().delete(tipoInstrumento);
+        model.delete(tipoInstrumento);
+    }
+
 }
