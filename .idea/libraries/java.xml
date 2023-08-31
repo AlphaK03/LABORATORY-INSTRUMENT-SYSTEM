@@ -1,0 +1,33 @@
+<component name="libraryTable">
+  <library name="java">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/lib/itext7/barcodes/src/main/java" />
+      <root url="file://$PROJECT_DIR$/lib/itext7/barcodes/src/test/java" />
+      <root url="file://$PROJECT_DIR$/lib/itext7/bouncy-castle-adapter/src/main/java" />
+      <root url="file://$PROJECT_DIR$/lib/itext7/bouncy-castle-connector/src/main/java" />
+      <root url="file://$PROJECT_DIR$/lib/itext7/bouncy-castle-fips-adapter/src/main/java" />
+      <root url="file://$PROJECT_DIR$/lib/itext7/commons/src/main/java" />
+      <root url="file://$PROJECT_DIR$/lib/itext7/commons/src/test/java" />
+      <root url="file://$PROJECT_DIR$/lib/itext7/forms/src/main/java" />
+      <root url="file://$PROJECT_DIR$/lib/itext7/forms/src/test/java" />
+      <root url="file://$PROJECT_DIR$/lib/itext7/io/src/main/java" />
+      <root url="file://$PROJECT_DIR$/lib/itext7/io/src/test/java" />
+      <root url="file://$PROJECT_DIR$/lib/itext7/kernel/src/main/java" />
+      <root url="file://$PROJECT_DIR$/lib/itext7/kernel/src/test/java" />
+      <root url="file://$PROJECT_DIR$/lib/itext7/layout/src/main/java" />
+      <root url="file://$PROJECT_DIR$/lib/itext7/layout/src/test/java" />
+      <root url="file://$PROJECT_DIR$/lib/itext7/pdfa/src/main/java" />
+      <root url="file://$PROJECT_DIR$/lib/itext7/pdfa/src/test/java" />
+      <root url="file://$PROJECT_DIR$/lib/itext7/pdftest/src/main/java" />
+      <root url="file://$PROJECT_DIR$/lib/itext7/pdftest/src/test/java" />
+      <root url="file://$PROJECT_DIR$/lib/itext7/sign/src/main/java" />
+      <root url="file://$PROJECT_DIR$/lib/itext7/sign/src/test/java" />
+      <root url="file://$PROJECT_DIR$/lib/itext7/styled-xml-parser/src/main/java" />
+      <root url="file://$PROJECT_DIR$/lib/itext7/styled-xml-parser/src/test/java" />
+      <root url="file://$PROJECT_DIR$/lib/itext7/svg/src/main/java" />
+      <root url="file://$PROJECT_DIR$/lib/itext7/svg/src/test/java" />
+    </SOURCES>
+  </library>
+</component>

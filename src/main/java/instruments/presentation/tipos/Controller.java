@@ -1,8 +1,11 @@
 package instruments.presentation.tipos;
-
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+import java.io.FileOutputStream;
 import instruments.logic.Service;
 import instruments.logic.TipoInstrumento;
-
 import java.util.List;
 
 public class Controller{
@@ -15,6 +18,24 @@ public class Controller{
         this.model = model;
         view.setController(this);
         view.setModel(model);
+    }
+
+    public void generatePDFReport(List<TipoInstrumento> tipos) throws Exception {
+        String outputFilePath = "report.pdf"; // Nombre del archivo de salida
+
+        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(new FileOutputStream(outputFilePath)));
+        Document document = new Document(pdfDocument);
+
+        document.add(new Paragraph("Reporte de Tipos de Instrumento"));
+
+        for (TipoInstrumento tipo : tipos) {
+            document.add(new Paragraph("Código: " + tipo.getCodigo()));
+            document.add(new Paragraph("Nombre: " + tipo.getNombre()));
+            document.add(new Paragraph("Unidad: " + tipo.getUnidad()));
+            document.add(new Paragraph("----------------------------------"));
+        }
+
+        document.close();
     }
 
     public void search(TipoInstrumento filter) throws  Exception{
@@ -54,6 +75,8 @@ public class Controller{
         Service.instance().update(tipoInstrumento); // Actualiza el registro en la capa de lógica
         model.update(tipoInstrumento); // Actualiza el registro en el modelo
     }
+
+
 
 
 }

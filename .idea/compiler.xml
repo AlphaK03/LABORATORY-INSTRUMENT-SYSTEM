@@ -9,5 +9,9 @@
         <module name="Instrumentos" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="itext7-core" target="1.5" />
+      <module name="LABORATORY-INSTRUMENT-SYSTEM" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>

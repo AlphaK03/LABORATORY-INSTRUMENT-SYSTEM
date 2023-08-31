@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumnModel;
 import java.awt.event.*;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.event.ListSelectionEvent;
@@ -131,6 +132,18 @@ public class View implements Observer {
                     unidad.setText("");
                     delete.setEnabled(false);
                     codigo.setEnabled(true);
+            }
+        });
+        report.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    List<TipoInstrumento> tipos = model.getList();
+                    controller.generatePDFReport(tipos);
+                    JOptionPane.showMessageDialog(panel, "Reporte generado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(panel, "Error al generar el reporte: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
     }
