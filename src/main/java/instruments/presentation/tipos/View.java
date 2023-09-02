@@ -6,6 +6,7 @@ import instruments.logic.TipoInstrumento;
 import javax.swing.*;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumnModel;
+import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
 import java.util.Observable;
@@ -56,13 +57,13 @@ public class View implements Observer {
                 }
             }
         });
-        delete.setEnabled(false); // Inhabilita el botón al inicio
+        delete.setEnabled(false);
 
         list.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 int selectedRowCount = list.getSelectedRowCount();
-                delete.setEnabled(selectedRowCount > 0); // Habilita o inhabilita según la selección
+                delete.setEnabled(selectedRowCount > 0);
             }
         });
 
@@ -71,7 +72,7 @@ public class View implements Observer {
             public void valueChanged(ListSelectionEvent e) {
                 int selectedRow = list.getSelectedRow();
                 if (selectedRow >= 0) {
-                    controller.edit(selectedRow); // Llama al método edit del controlador
+                    controller.edit(selectedRow);
                 }
             }
         });
@@ -100,18 +101,19 @@ public class View implements Observer {
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Highlighter highlighter = new Highlighter(Color.RED);
                 TipoInstrumento tipoInstrumento = new TipoInstrumento();
                 tipoInstrumento.setCodigo(codigo.getText());
                 tipoInstrumento.setNombre(nombre.getText());
                 tipoInstrumento.setUnidad(unidad.getText());
 
                 try {
-                    if(codigo.isEnabled()){
+                    if(codigo.isEnabled() && !codigo.getText().isBlank()){
                         controller.create(tipoInstrumento);
                         model.update(tipoInstrumento);
 
                     }else {
-                        controller.update(tipoInstrumento); // Llama al método update del controlador
+                        controller.update(tipoInstrumento);
                     }
                     codigo.setEnabled(true);
                 } catch (Exception ex) {
@@ -130,6 +132,7 @@ public class View implements Observer {
                     codigo.setText("");
                     nombre.setText("");
                     unidad.setText("");
+                    searchNombre.setText("");
                     delete.setEnabled(false);
                     codigo.setEnabled(true);
             }
@@ -184,9 +187,8 @@ public class View implements Observer {
     }
 
     public void enableEditing() {
-        codigo.setEnabled(false); // Deshabilita la edición del campo "Código"
-        delete.setEnabled(true); // Habilita el botón de "Borrar"
-        // Actualiza los campos de texto con los valores del tipo de instrumento actual
+        codigo.setEnabled(false);
+        delete.setEnabled(true);
         codigo.setText(model.getCurrent().getCodigo());
         nombre.setText(model.getCurrent().getNombre());
         unidad.setText(model.getCurrent().getUnidad());
