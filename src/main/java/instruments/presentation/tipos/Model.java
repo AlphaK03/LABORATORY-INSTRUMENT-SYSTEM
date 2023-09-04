@@ -20,6 +20,7 @@ public class Model extends java.util.Observable{
     public void commit() {
         setChanged();
         notifyObservers(changedProps);
+        notifyObservers(LIST);
         changedProps = NONE;
     }
 
@@ -57,12 +58,12 @@ public class Model extends java.util.Observable{
 
     public void enableEditing() {
         setChanged();
-        notifyObservers(CURRENT); // Notifica a los observadores sobre el cambio en "current"
+        notifyObservers(CURRENT);
     }
     public void update(TipoInstrumento tipoInstrumento) {
         list.replaceAll(i -> i.getCodigo().equals(tipoInstrumento.getCodigo()) ? tipoInstrumento : i);
         setChanged();
-        notifyObservers(LIST); // Notifica a los observadores sobre el cambio en la lista
+        notifyObservers(LIST);
     }
 
 

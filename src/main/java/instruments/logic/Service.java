@@ -19,7 +19,6 @@ public class Service {
         data = new Data();
     }
 
-    //================= TIPOS DE INSTRUMENTO ============
     public void create(TipoInstrumento e) throws Exception {
         TipoInstrumento result = data.getTipos().stream()
                 .filter(i -> i.getCodigo().equals(e.getCodigo()))

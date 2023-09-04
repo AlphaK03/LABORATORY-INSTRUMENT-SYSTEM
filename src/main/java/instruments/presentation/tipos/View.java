@@ -1,6 +1,5 @@
 package instruments.presentation.tipos;
 
-import instruments.logic.Service;
 import instruments.logic.TipoInstrumento;
 
 import javax.swing.*;
@@ -49,6 +48,7 @@ public class View implements Observer {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+                    fixColorTextFields();
                     TipoInstrumento filter= new TipoInstrumento();
                     filter.setNombre(searchNombre.getText());
                     controller.search(filter);
@@ -64,6 +64,7 @@ public class View implements Observer {
             public void valueChanged(ListSelectionEvent e) {
                 int selectedRowCount = list.getSelectedRowCount();
                 delete.setEnabled(selectedRowCount > 0);
+                fixColorTextFields();
             }
         });
 
@@ -101,21 +102,24 @@ public class View implements Observer {
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Highlighter highlighter = new Highlighter(Color.RED);
                 TipoInstrumento tipoInstrumento = new TipoInstrumento();
+
+                verifyTextFields();
+
                 tipoInstrumento.setCodigo(codigo.getText());
                 tipoInstrumento.setNombre(nombre.getText());
                 tipoInstrumento.setUnidad(unidad.getText());
 
                 try {
-                    if(codigo.isEnabled() && !codigo.getText().isBlank()){
+
+                    if(codigo.isEnabled()){
                         controller.create(tipoInstrumento);
                         model.update(tipoInstrumento);
-
                     }else {
                         controller.update(tipoInstrumento);
                     }
                     codigo.setEnabled(true);
+                    cleaningTextFields();
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(panel, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -129,18 +133,14 @@ public class View implements Observer {
         clear.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                    codigo.setText("");
-                    nombre.setText("");
-                    unidad.setText("");
-                    searchNombre.setText("");
-                    delete.setEnabled(false);
-                    codigo.setEnabled(true);
+                    cleaningTextFields();
             }
         });
         report.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+                    fixColorTextFields();
                     List<TipoInstrumento> tipos = model.getList();
                     controller.generatePDFReport(tipos);
                     JOptionPane.showMessageDialog(panel, "Reporte generado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
@@ -193,5 +193,42 @@ public class View implements Observer {
         nombre.setText(model.getCurrent().getNombre());
         unidad.setText(model.getCurrent().getUnidad());
     }
+
+    public void cleaningTextFields(){
+        fixColorTextFields();
+        codigo.setText("");
+        nombre.setText("");
+        unidad.setText("");
+        searchNombre.setText("");
+        delete.setEnabled(false);
+        codigo.setEnabled(true);
+    }
+
+    public void verifyTextFields() {
+        JTextField[] fields = {codigo, nombre, unidad};
+        boolean camposVacios = false;
+
+        for (JTextField field : fields) {
+            if (field.getText().isBlank()) {
+                field.setBackground(new Color(255, 163, 142));
+                camposVacios = true;
+            } else {
+                field.setBackground(Color.WHITE);
+            }
+        }
+
+        if (camposVacios) {
+            throw new RuntimeException("Los campos en rojo son obligatorios.");
+        }
+    }
+
+    public void fixColorTextFields(){
+        JTextField[] fields = {codigo, nombre, unidad};
+        for (JTextField field : fields) {
+                field.setBackground(Color.WHITE);
+        }
+    }
+
+
 
 }
