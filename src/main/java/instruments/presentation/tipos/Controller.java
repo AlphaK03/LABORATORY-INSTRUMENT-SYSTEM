@@ -11,6 +11,8 @@ import com.itextpdf.layout.properties.TextAlignment;
 import instruments.Application;
 import instruments.logic.Service;
 import instruments.logic.TipoInstrumento;
+import instruments.logic.TipoInstrumentoXMLManager;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -27,7 +29,7 @@ public class Controller{
     }
 
     public void generatePDFReport(List<TipoInstrumento> tipos) throws Exception {
-        String outputFilePath = "report.pdf"; // Nombre del archivo de salida
+        String outputFilePath = "files/report.pdf";
 
         PdfDocument pdfDocument = new PdfDocument(new PdfWriter(new FileOutputStream(outputFilePath)));
         Document document = new Document(pdfDocument);
@@ -38,7 +40,7 @@ public class Controller{
         Paragraph title = new Paragraph("Reporte de Tipos de Instrumento")
                 .setTextAlignment(TextAlignment.CENTER)
                 .setBold()
-                .setFontSize(24); // Tamaño de letra más grande para el título
+                .setFontSize(24);
         document.add(title);
 
         for (TipoInstrumento tipo : tipos) {
@@ -63,8 +65,8 @@ public class Controller{
 
     public void edit(int row) {
         TipoInstrumento selectedInstrumento = model.getList().get(row);
-        model.setCurrent(selectedInstrumento); // Establece el instrumento seleccionado como "current"
-        view.enableEditing(); // Activa la edición en la vista
+        model.setCurrent(selectedInstrumento);
+        view.enableEditing();
     }
 
 
@@ -76,8 +78,9 @@ public class Controller{
     public void create(TipoInstrumento tipoInstrumento) {
         try {
             Service.instance().create(tipoInstrumento);
-            model.getList().add(tipoInstrumento); // Agregar el nuevo registro a la lista del modelo
-            model.commit(); // Notificar a la vista que la lista ha cambiado
+            model.getList().add(tipoInstrumento);
+            model.commit();
+            guardarDatos("files/TiposInstrumentos.xml");
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
@@ -85,11 +88,15 @@ public class Controller{
     }
 
     public void update(TipoInstrumento tipoInstrumento) throws Exception {
-        Service.instance().update(tipoInstrumento); // Actualiza el registro en la capa de lógica
-        model.update(tipoInstrumento); // Actualiza el registro en el modelo
+        Service.instance().update(tipoInstrumento);
+        model.update(tipoInstrumento);
+        guardarDatos("files/TiposInstrumentos.xml");
     }
 
 
+    public void guardarDatos(String filePath) {
+        TipoInstrumentoXMLManager.guardarTiposInstrumento(model.getList(), filePath);
+    }
 
 
 }
