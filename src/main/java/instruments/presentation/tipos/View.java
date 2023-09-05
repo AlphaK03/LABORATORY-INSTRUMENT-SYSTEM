@@ -1,11 +1,11 @@
 package instruments.presentation.tipos;
 
+import instruments.logic.ButtonUtils;
 import instruments.logic.TipoInstrumento;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumnModel;
-import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
 import java.util.Observable;
@@ -17,13 +17,13 @@ public class View implements Observer {
     private JPanel panel;
     private JTextField searchNombre;
     private JButton search;
-    private JButton save;
+    private JButton saveTiposInstrumentos;
     private JTable list;
     private JButton delete;
     private JTextField codigo;
     private JTextField nombre;
     private JTextField unidad;
-    private JButton clear;
+    private JButton clearTiposInstrumentos;
 
     public JTabbedPane getTabbedPane1() {
         return tabbedPane1;
@@ -39,16 +39,24 @@ public class View implements Observer {
     private JPanel panel3;
     private JPanel panel4;
     private JPanel panel2;
-    private JComboBox comboBox1;
+    private JComboBox comboBoxTipo;
     private JScrollPane tableModel2;
     private JTable list2;
+    private JButton saveInstrumentos;
+    private JButton clearInstrumentos;
+    private JTextField serie;
+    private JTextField descripcion;
+    private JTextField tolerancia;
+    private JTextField minimo;
+    private JTextField maximo;
 
     public View() {
         search.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    fixColorTextFields();
+
+                    ButtonUtils.fixColorTextFields(codigo,unidad,nombre);
                     TipoInstrumento filter= new TipoInstrumento();
                     filter.setNombre(searchNombre.getText());
                     controller.search(filter);
@@ -64,7 +72,8 @@ public class View implements Observer {
             public void valueChanged(ListSelectionEvent e) {
                 int selectedRowCount = list.getSelectedRowCount();
                 delete.setEnabled(selectedRowCount > 0);
-                fixColorTextFields();
+                ButtonUtils.fixColorTextFields(codigo,unidad,nombre);
+
             }
         });
 
@@ -99,18 +108,18 @@ public class View implements Observer {
                 codigo.setEnabled(true);
             }
         });
-        save.addActionListener(new ActionListener() {
+        saveTiposInstrumentos.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 TipoInstrumento tipoInstrumento = new TipoInstrumento();
-               
+
 
                 tipoInstrumento.setCodigo(codigo.getText());
                 tipoInstrumento.setNombre(nombre.getText());
                 tipoInstrumento.setUnidad(unidad.getText());
 
                 try {
-                    verifyTextFields();
+                    ButtonUtils.verifyTextFields(codigo, unidad, nombre);
 
                     if(codigo.isEnabled()){
                         controller.create(tipoInstrumento);
@@ -119,7 +128,8 @@ public class View implements Observer {
                         controller.update(tipoInstrumento);
                     }
                     codigo.setEnabled(true);
-                    cleaningTextFields();
+                    delete.setEnabled(false);
+                    ButtonUtils.clearFields(codigo, unidad, nombre, searchNombre);
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(panel, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -128,25 +138,46 @@ public class View implements Observer {
         });
 
 
-
-
-        clear.addActionListener(new ActionListener() {
+        clearTiposInstrumentos.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                    cleaningTextFields();
+                    ButtonUtils.clearFields(codigo, unidad, nombre, searchNombre);
+                    ButtonUtils.fixColorTextFields(codigo, unidad, nombre, searchNombre);
+                    codigo.setEnabled(true);
             }
         });
         report.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    fixColorTextFields();
+                    ButtonUtils.fixColorTextFields(codigo,unidad,nombre);
+
                     List<TipoInstrumento> tipos = model.getList();
                     controller.generatePDFReport(tipos);
                     JOptionPane.showMessageDialog(panel, "Reporte generado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(panel, "Error al generar el reporte: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
+            }
+        });
+
+        //VENTANA #2 -------------------------------------------------------------------------------------------------------
+        saveInstrumentos.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    ButtonUtils.verifyTextFields(serie, descripcion, tolerancia, maximo, minimo);
+                }catch (Exception ex){
+                    JOptionPane.showMessageDialog(panel, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+
+                }
+            }
+        });
+        clearInstrumentos.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ButtonUtils.clearFields(serie, descripcion, tolerancia, maximo, minimo);
+                ButtonUtils.fixColorTextFields(serie, descripcion, tolerancia, maximo, minimo);
             }
         });
     }
@@ -202,40 +233,11 @@ public class View implements Observer {
         unidad.setText(model.getCurrent().getUnidad());
     }
 
-    public void cleaningTextFields(){
-        fixColorTextFields();
-        codigo.setText("");
-        nombre.setText("");
-        unidad.setText("");
-        searchNombre.setText("");
-        delete.setEnabled(false);
-        codigo.setEnabled(true);
-    }
 
-    public void verifyTextFields() {
-        JTextField[] fields = {codigo, nombre, unidad};
-        boolean camposVacios = false;
 
-        for (JTextField field : fields) {
-            if (field.getText().isBlank()) {
-                field.setBackground(new Color(255, 163, 142));
-                camposVacios = true;
-            } else {
-                field.setBackground(Color.WHITE);
-            }
-        }
 
-        if (camposVacios) {
-            throw new RuntimeException("Los campos en rojo son obligatorios.");
-        }
-    }
 
-    public void fixColorTextFields(){
-        JTextField[] fields = {codigo, nombre, unidad};
-        for (JTextField field : fields) {
-                field.setBackground(Color.WHITE);
-        }
-    }
+
 
 
 

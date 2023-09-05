@@ -116,7 +116,7 @@
                     <properties/>
                     <border type="empty" title=""/>
                     <children>
-                      <component id="e73fa" class="javax.swing.JButton" binding="save">
+                      <component id="e73fa" class="javax.swing.JButton" binding="saveTiposInstrumentos">
                         <constraints>
                           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
@@ -136,7 +136,7 @@
                           <text value="Borrar"/>
                         </properties>
                       </component>
-                      <component id="94c22" class="javax.swing.JButton" binding="clear">
+                      <component id="94c22" class="javax.swing.JButton" binding="clearTiposInstrumentos">
                         <constraints>
                           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
@@ -335,7 +335,7 @@
                     <properties/>
                     <border type="empty" title=""/>
                     <children>
-                      <component id="c288a" class="javax.swing.JButton">
+                      <component id="c288a" class="javax.swing.JButton" binding="saveInstrumentos">
                         <constraints>
                           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
@@ -355,7 +355,7 @@
                           <text value="Borrar"/>
                         </properties>
                       </component>
-                      <component id="59c5e" class="javax.swing.JButton">
+                      <component id="59c5e" class="javax.swing.JButton" binding="clearInstrumentos">
                         <constraints>
                           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
@@ -392,7 +392,7 @@
                               <text value="Serie"/>
                             </properties>
                           </component>
-                          <component id="63687" class="javax.swing.JTextField">
+                          <component id="63687" class="javax.swing.JTextField" binding="serie">
                             <constraints>
                               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="-1"/>
@@ -408,7 +408,7 @@
                               <text value="Tolerancia"/>
                             </properties>
                           </component>
-                          <component id="282f0" class="javax.swing.JTextField">
+                          <component id="282f0" class="javax.swing.JTextField" binding="tolerancia">
                             <constraints>
                               <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="-1"/>
@@ -424,7 +424,7 @@
                               <text value="Mínimo"/>
                             </properties>
                           </component>
-                          <component id="6db9a" class="javax.swing.JTextField">
+                          <component id="6db9a" class="javax.swing.JTextField" binding="minimo">
                             <constraints>
                               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="-1"/>
@@ -450,7 +450,7 @@
                               <text value="Descripción"/>
                             </properties>
                           </component>
-                          <component id="d0b93" class="javax.swing.JTextField">
+                          <component id="d0b93" class="javax.swing.JTextField" binding="descripcion">
                             <constraints>
                               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="-1"/>
@@ -466,7 +466,7 @@
                               <text value="Máximo"/>
                             </properties>
                           </component>
-                          <component id="31544" class="javax.swing.JTextField">
+                          <component id="31544" class="javax.swing.JTextField" binding="maximo">
                             <constraints>
                               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="-1"/>
@@ -482,14 +482,12 @@
                               <text value="Tipo"/>
                             </properties>
                           </component>
-                          <component id="d46f7" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
+                          <component id="d46f7" class="javax.swing.JComboBox" binding="comboBoxTipo">
                             <constraints>
                               <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
-                              <model>
-                                <item value="Termómetro"/>
-                              </model>
+                              <model/>
                             </properties>
                           </component>
                         </children>
