@@ -1,6 +1,5 @@
 package instruments;
 
-import instruments.logic.Service;
 import instruments.presentation.tipos.View;
 
 import javax.swing.*;
@@ -30,11 +29,10 @@ public class Application {
         window.setTitle("SILAB: Sistema de Laboratorio Industrial");
         window.setVisible(true);
 
-        window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         window.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                tiposController.guardarDatos("files/TiposInstrumentos.xml"); // Guardar datos antes de cerrar
+                tiposController.saveData("files/TiposInstrumentos.xml"); // Guardar datos antes de cerrar
             }
         });
     }

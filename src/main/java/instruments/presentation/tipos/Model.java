@@ -7,6 +7,8 @@ import java.util.Observer;
 
 public class Model extends java.util.Observable{
     List<TipoInstrumento> list;
+    List<Integer> list2;
+
     TipoInstrumento current;
 
     int changedProps = NONE;
@@ -33,9 +35,12 @@ public class Model extends java.util.Observable{
         setCurrent(new TipoInstrumento());
     }
 
+    //Modificar esta función clasificando el retun segúan sea el caso solicitado
     public List<TipoInstrumento> getList() {
         return list;
     }
+
+
     public void setList(List<TipoInstrumento> list){
         this.list = list;
         changedProps +=LIST;

@@ -103,14 +103,14 @@ public class View implements Observer {
             @Override
             public void actionPerformed(ActionEvent e) {
                 TipoInstrumento tipoInstrumento = new TipoInstrumento();
-
-                verifyTextFields();
+               
 
                 tipoInstrumento.setCodigo(codigo.getText());
                 tipoInstrumento.setNombre(nombre.getText());
                 tipoInstrumento.setUnidad(unidad.getText());
 
                 try {
+                    verifyTextFields();
 
                     if(codigo.isEnabled()){
                         controller.create(tipoInstrumento);
@@ -175,6 +175,14 @@ public class View implements Observer {
             list.setModel(new TableModel(cols, model.getList()));
             list.setRowHeight(30);
             TableColumnModel columnModel = list.getColumnModel();
+            columnModel.getColumn(2).setPreferredWidth(200);
+        }
+
+        if ((changedProps & Model.LIST) == Model.LIST) {
+            int[] cols = {TableModel2.SERIE, TableModel2.DESCRIPCION, TableModel2.TOLERANCIA};
+            list2.setModel(new TableModel2(cols, model.getList()));
+            list2.setRowHeight(30);
+            TableColumnModel columnModel = list2.getColumnModel();
             columnModel.getColumn(2).setPreferredWidth(200);
         }
 

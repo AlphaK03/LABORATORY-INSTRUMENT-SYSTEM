@@ -80,7 +80,7 @@ public class Controller{
             Service.instance().create(tipoInstrumento);
             model.getList().add(tipoInstrumento);
             model.commit();
-            guardarDatos("files/TiposInstrumentos.xml");
+            saveData("files/TiposInstrumentos.xml");
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
@@ -90,11 +90,11 @@ public class Controller{
     public void update(TipoInstrumento tipoInstrumento) throws Exception {
         Service.instance().update(tipoInstrumento);
         model.update(tipoInstrumento);
-        guardarDatos("files/TiposInstrumentos.xml");
+        saveData("files/TiposInstrumentos.xml");
     }
 
 
-    public void guardarDatos(String filePath) {
+    public void saveData(String filePath) {
         TipoInstrumentoXMLManager.guardarTiposInstrumento(model.getList(), filePath);
     }
 
