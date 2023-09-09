@@ -5,9 +5,8 @@ import instruments.logic.TipoInstrumento;
 import java.util.List;
 import java.util.Observer;
 
-public class Model extends java.util.Observable{
+public class TiposModel extends java.util.Observable{
     List<TipoInstrumento> list;
-    List<Integer> list2;
 
     TipoInstrumento current;
 
@@ -27,7 +26,7 @@ public class Model extends java.util.Observable{
     }
 
 
-    public Model() {
+    public TiposModel() {
     }
 
     public void init(List<TipoInstrumento> list){
