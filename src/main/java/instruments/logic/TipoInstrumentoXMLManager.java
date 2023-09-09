@@ -131,7 +131,7 @@ public class TipoInstrumentoXMLManager {
 
                 // TipoInstrumento (asumiendo que el tipo se guarda como código)
                 Element tipoInstrumentoElement = doc.createElement("tipoInstrumento");
-                tipoInstrumentoElement.appendChild(doc.createTextNode(instrumento.getTipoInstrumento().getCodigo()));
+                tipoInstrumentoElement.appendChild(doc.createTextNode(instrumento.getTipoInstrumento().getNombre()));
                 instrumentoElement.appendChild(tipoInstrumentoElement);
             }
 
@@ -173,10 +173,10 @@ public class TipoInstrumentoXMLManager {
                         double tolerancia = Double.parseDouble(instrumentoElement.getElementsByTagName("tolerancia").item(0).getTextContent());
                         double maximo = Double.parseDouble(instrumentoElement.getElementsByTagName("maximo").item(0).getTextContent());
                         double minimo = Double.parseDouble(instrumentoElement.getElementsByTagName("minimo").item(0).getTextContent());
-                        String tipoInstrumentoCodigo = instrumentoElement.getElementsByTagName("tipoInstrumento").item(0).getTextContent();
+                        String tipoInstrumentoNombre = instrumentoElement.getElementsByTagName("tipoInstrumento").item(0).getTextContent();
 
                         // En este punto, debes buscar el TipoInstrumento correspondiente en tu lista de TipoInstrumento cargada previamente
-                        TipoInstrumento tipoInstrumento = obtenerTipoInstrumentoPorCodigo(tipoInstrumentoCodigo, "files/TiposInstrumentos.xml");
+                        TipoInstrumento tipoInstrumento = obtenerTipoInstrumentoPorNombre(tipoInstrumentoNombre, "files/XMLData/TiposInstrumentos.xml");
 
                         if (tipoInstrumento != null) {
                             Instrumento instrumento = new Instrumento(serie, descripcion, tolerancia, maximo, minimo, tipoInstrumento);
@@ -195,10 +195,10 @@ public class TipoInstrumentoXMLManager {
 
 
     // Función para obtener un TipoInstrumento por su código
-    private static TipoInstrumento obtenerTipoInstrumentoPorCodigo(String codigo, String filePath) {
+    private static TipoInstrumento obtenerTipoInstrumentoPorNombre(String nombres, String filePath) {
         List<TipoInstrumento> tipos = cargarTiposInstrumento(filePath);
         return tipos.stream()
-                .filter(t -> t.getCodigo().equals(codigo))
+                .filter(t -> t.getNombre().equals(nombres))
                 .findFirst()
                 .orElse(null);
     }

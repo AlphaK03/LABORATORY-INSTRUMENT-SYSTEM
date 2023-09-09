@@ -164,18 +164,18 @@ public class Service {
 
     private String reportFileName(List<?> objects) {
         if (objects.isEmpty()) {
-            return "files/default_report.pdf";
+            return "files/PdfReports/default_report.pdf";
         }
 
         Object firstObject = objects.get(0);
         if (firstObject instanceof TipoInstrumento) {
-            return "files/tipo_instrumento_report.pdf";
+            return "files/PdfReports/tipo_instrumento_report.pdf";
         } else if (firstObject instanceof Instrumento) {
-            return "files/instrumento_report.pdf";
+            return "files/PdfReports/instrumento_report.pdf";
         }// else if (firstObject instanceof Calibracion) {
-           // return "files/calibracion_report.pdf";
+           // return "files/PdfReports/calibracion_report.pdf";
         //} else {
-            return "files/default_report.pdf";
+            return "files/PdfReports/default_report.pdf";
         }
 }
 

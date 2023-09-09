@@ -7,6 +7,8 @@ import instruments.logic.TipoInstrumento;
 import instruments.logic.TipoInstrumentoXMLManager;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.event.*;
@@ -53,12 +55,13 @@ public class InstrumentosView implements Observer {
                 // Asignar el TipoInstrumento asociado a este instrumento
                 TipoInstrumento tipoInstrumentoSeleccionado = null;
                 for (TipoInstrumento tipo : tiposInstrumento) {
-                    if (tipo.getCodigo().equals(Objects.requireNonNull(comboBoxTipo.getSelectedItem()).toString())) {
+                    if (tipo.getNombre().equals(Objects.requireNonNull(comboBoxTipo.getSelectedItem()).toString())) {
                         tipoInstrumentoSeleccionado = tipo;
                         break;
                     }
                 }
                 instrumento.setTipoInstrumento(tipoInstrumentoSeleccionado);
+                deleteInstruments.setEnabled(false);
 
                 try {
                     ButtonUtils.verifyTextFields(serie, descripcion, tolerancia, maximo, minimo);
@@ -70,10 +73,32 @@ public class InstrumentosView implements Observer {
                         instrumentosController.update(instrumento);
                     }
                     serie.setEnabled(true);
-                    deleteInstruments.setEnabled(false);
-                    ButtonUtils.clearFields(serie, descripcion, tolerancia, maximo, minimo);
+                    ButtonUtils.clearFields(serie, descripcion);
+                    tolerancia.setText("0.0");
+                    maximo.setText("0.0");
+                    minimo.setText("0.0");
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(panel, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+
+        list.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                int selectedRowCount = list.getSelectedRowCount();
+                deleteInstruments.setEnabled(selectedRowCount > 0);
+                ButtonUtils.fixColorTextFields(serie, descripcion, tolerancia, maximo, minimo);
+            }
+        });
+
+        list.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                int selectedRow = list.getSelectedRow();
+                if (selectedRow >= 0) {
+                    instrumentosController.edit(selectedRow);
                 }
             }
         });
@@ -81,8 +106,12 @@ public class InstrumentosView implements Observer {
         clearInstrumentos.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ButtonUtils.clearFields(serie, descripcion, tolerancia, maximo, minimo);
+                ButtonUtils.clearFields(serie, descripcion);
                 ButtonUtils.fixColorTextFields(serie, descripcion, tolerancia, maximo, minimo);
+                tolerancia.setText("0.0");
+                maximo.setText("0.0");
+                minimo.setText("0.0");
+                deleteInstruments.setEnabled(false);
             }
         });
 
@@ -95,7 +124,7 @@ public class InstrumentosView implements Observer {
                 List<TipoInstrumento> tiposInstrumento = tipoInstrumentoList();
 
                 for (TipoInstrumento tipo : tiposInstrumento) {
-                    comboBoxTipo.addItem(tipo.getCodigo());
+                    comboBoxTipo.addItem(tipo.getNombre());
                 }
 
             }
@@ -126,6 +155,23 @@ public class InstrumentosView implements Observer {
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(panel, ex.getMessage(), "Información", JOptionPane.INFORMATION_MESSAGE);
                 }
+            }
+        });
+        deleteInstruments.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int row = list.getSelectedRow();
+                if (row >= 0) {
+                    Instrumento instrumento = instrumentosModel.getList().get(row);
+                    try {
+                        instrumentosController.delete(instrumento);
+                    } catch (Exception ex) {
+                        throw new RuntimeException(ex);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(panel, "No item selected.", "Warning", JOptionPane.WARNING_MESSAGE);
+                }
+                instrumentosController.saveData();
             }
         });
     }
@@ -221,7 +267,7 @@ public class InstrumentosView implements Observer {
 
 
     public List<TipoInstrumento> tipoInstrumentoList(){
-        return TipoInstrumentoXMLManager.cargarTiposInstrumento("files/TiposInstrumentos.xml");
+        return TipoInstrumentoXMLManager.cargarTiposInstrumento("files/XMLData/TiposInstrumentos.xml");
     }
 
 

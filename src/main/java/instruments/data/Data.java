@@ -58,7 +58,7 @@ public class Data {
 
     private void cargarDatosDesdeXML() {
         try {
-            this.tipos = TipoInstrumentoXMLManager.cargarTiposInstrumento("files/TiposInstrumentos.xml");
+            this.tipos = TipoInstrumentoXMLManager.cargarTiposInstrumento("files/XMLData/TiposInstrumentos.xml");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -66,7 +66,7 @@ public class Data {
 
     private void cargarInstrumentosDesdeXML() {
         try {
-            this.instrumentos = TipoInstrumentoXMLManager.cargarInstrumentos("files/Instrumentos.xml");
+            this.instrumentos = TipoInstrumentoXMLManager.cargarInstrumentos("files/XMLData/Instrumentos.xml");
         } catch (Exception e) {
             e.printStackTrace();
         }

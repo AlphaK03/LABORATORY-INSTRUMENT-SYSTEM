@@ -63,7 +63,7 @@ public class TiposController {
 
 
     public void saveData() {
-        TipoInstrumentoXMLManager.guardarTiposInstrumento(tiposModel.getList(), "files/TiposInstrumentos.xml");
+        TipoInstrumentoXMLManager.guardarTiposInstrumento(tiposModel.getList(), "files/XMLData/TiposInstrumentos.xml");
     }
 
 

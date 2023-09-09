@@ -53,7 +53,7 @@ public class Application {
             @Override
             public void windowClosing(WindowEvent e) {
                 tiposController.saveData();
-                instrumentosController.saveData("files/Instrumentos.xml");
+                instrumentosController.saveData();
             }
         });
     }

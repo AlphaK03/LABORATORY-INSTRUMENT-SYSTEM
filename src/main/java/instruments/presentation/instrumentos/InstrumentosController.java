@@ -46,7 +46,7 @@ public class InstrumentosController {
             Service.instance().createInstrumento(instrumento);
             instrumentosModel.getList().add(instrumento);
             instrumentosModel.commit();
-            saveData("files/Instrumentos.xml");
+            saveData();
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
@@ -55,11 +55,11 @@ public class InstrumentosController {
     public void update(Instrumento instrumento) throws Exception {
         Service.instance().updateInstrumento(instrumento);
         instrumentosModel.update(instrumento);
-        saveData("files/Instrumentos.xml");
+        saveData();
     }
 
-    public void saveData(String filePath) {
-        TipoInstrumentoXMLManager.guardarInstrumentos(instrumentosModel.getList(), filePath);
+    public void saveData() {
+        TipoInstrumentoXMLManager.guardarInstrumentos(instrumentosModel.getList(), "files/XMLData/Instrumentos.xml");
     }
 
     public void generatePDFReport(List<Instrumento> instrumentos) throws Exception {
