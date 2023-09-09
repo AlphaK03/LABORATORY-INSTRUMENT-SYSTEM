@@ -1,6 +1,9 @@
 package instruments;
 
-import instruments.presentation.tipos.View;
+import instruments.presentation.instrumentos.InstrumentosController;
+import instruments.presentation.instrumentos.InstrumentosModel;
+import instruments.presentation.instrumentos.InstrumentosView;
+import instruments.presentation.tipos.*;
 
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
@@ -13,13 +16,30 @@ public class Application {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");}
         catch (Exception ignored) {};
 
-        window = new JFrame();
+        JFrame window = new JFrame();
+        JTabbedPane tabbedPane = new JTabbedPane();
 
-        instruments.presentation.tipos.Model tiposModel= new instruments.presentation.tipos.Model();
-        View tiposView = new View();
-        tiposController = new instruments.presentation.tipos.Controller(tiposView,tiposModel);
+        InstrumentosModel instrumentosModel = new InstrumentosModel();
+        InstrumentosView instrumentosView = new InstrumentosView();
+        InstrumentosController instrumentosController = new InstrumentosController(instrumentosView, instrumentosModel);
 
-        window.getContentPane().add(tiposView.getTabbedPane1());
+        // Panel para "Tipos de Instrumento"
+        TiposModel tiposModel = new TiposModel();
+        TiposView tiposView = new TiposView();
+        TiposController tiposController = new TiposController(tiposView, tiposModel);
+        tabbedPane.addTab("Tipos de Instrumento", tiposView.getPanel());
+
+        // Panel para "Instrumentos"
+        JPanel calibracionesPanel = new JPanel();
+        JPanel acercaDePanel = new JPanel();
+
+
+
+        tabbedPane.addTab("Instrumentos", instrumentosView.getPanel());
+        tabbedPane.addTab("Calibraciones", calibracionesPanel);
+        tabbedPane.addTab("Acerca de", acercaDePanel);
+
+        window.getContentPane().add(tabbedPane);
 
         window.setSize(900,450);
         window.setResizable(true);
@@ -32,14 +52,15 @@ public class Application {
         window.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                tiposController.saveData("files/TiposInstrumentos.xml"); // Guardar datos antes de cerrar
+                tiposController.saveData();
+                instrumentosController.saveData("files/Instrumentos.xml");
             }
         });
     }
 
 
 
-    public static instruments.presentation.tipos.Controller tiposController;
+    public static TiposController tiposController;
 
     public static JFrame window;
 }

@@ -21,8 +21,8 @@
         </dependency>
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
-            <artifactId>jaxb-runtime</artifactId>
-            <version>2.3.3</version>
+            <artifactId>jaxb-core</artifactId>
+            <version>4.0.3</version>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.core</groupId>
@@ -34,6 +34,7 @@
             <artifactId>wsdl4j-qname</artifactId>
             <version>1.6.1</version>
         </dependency>
+
     </dependencies>
 
 </project>
