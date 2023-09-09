@@ -11,6 +11,7 @@ import instruments.Application;
 import instruments.data.Data;
 
 import java.io.FileOutputStream;
+import java.lang.reflect.Field;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -19,17 +20,19 @@ import java.util.stream.Collectors;
 public class Service {
     private static Service theInstance;
 
-    public static Service instance(){
+    public static Service instance() {
         if (theInstance == null) theInstance = new Service();
         return theInstance;
     }
+
     private Data data;
 
-    private Service(){
+    private Service() {
         data = new Data();
     }
 
-    public void create(TipoInstrumento e) throws Exception {
+    // Funciones para TipoInstrumento
+    public void createTipoInstrumento(TipoInstrumento e) throws Exception {
         TipoInstrumento result = data.getTipos().stream()
                 .filter(i -> i.getCodigo().equals(e.getCodigo()))
                 .findFirst()
@@ -39,42 +42,82 @@ public class Service {
         } else {
             throw new Exception("Tipo ya existe");
         }
-
     }
 
-
-    public TipoInstrumento read(TipoInstrumento e) throws Exception{
+    public TipoInstrumento readTipoInstrumento(TipoInstrumento e) throws Exception {
         TipoInstrumento result = data.getTipos().stream()
-                .filter(i->i.getCodigo().equals(e.getCodigo())).findFirst().orElse(null);
-        if (result!=null) return result;
+                .filter(i -> i.getCodigo().equals(e.getCodigo())).findFirst().orElse(null);
+        if (result != null) return result;
         else throw new Exception("Tipo no existe");
     }
 
-    public void update(TipoInstrumento e) throws Exception{
+    public void updateTipoInstrumento(TipoInstrumento e) throws Exception {
         TipoInstrumento result;
-        try{
-            result = this.read(e);
+        try {
+            result = this.readTipoInstrumento(e);
             data.getTipos().remove(result);
             data.getTipos().add(e);
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             throw new Exception("Tipo no existe");
         }
     }
 
-    public void delete(TipoInstrumento e) throws Exception{
+    public void deleteTipoInstrumento(TipoInstrumento e) throws Exception {
         data.getTipos().remove(e);
-     }
+    }
 
-    public List<TipoInstrumento> search(TipoInstrumento e){
+    public List<TipoInstrumento> searchTipoInstrumento(TipoInstrumento e) {
         return data.getTipos().stream()
-                .filter(i->i.getNombre().contains(e.getNombre()))
+                .filter(i -> i.getNombre().contains(e.getNombre()))
                 .sorted(Comparator.comparing(TipoInstrumento::getNombre))
                 .collect(Collectors.toList());
     }
 
+    // Funciones para Instrumento
+    public void createInstrumento(Instrumento e) throws Exception {
+        Instrumento result = data.getInstrumentos().stream()
+                .filter(i -> i.getSerie().equals(e.getSerie()))
+                .findFirst()
+                .orElse(null);
+        if (result == null) {
+            data.getInstrumentos().add(e);
+        } else {
+            throw new Exception("Instrumento ya existe");
+        }
+    }
 
-    public void generatePDFReport(List<TipoInstrumento> tipos) throws Exception {
-        String outputFilePath = "files/report.pdf";
+    public Instrumento readInstrumento(Instrumento e) throws Exception {
+        Instrumento result = data.getInstrumentos().stream()
+                .filter(i -> i.getSerie().equals(e.getSerie())).findFirst().orElse(null);
+        if (result != null) return result;
+        else throw new Exception("Instrumento no existe");
+    }
+
+    public void updateInstrumento(Instrumento e) throws Exception {
+        Instrumento result;
+        try {
+            result = this.readInstrumento(e);
+            data.getInstrumentos().remove(result);
+            data.getInstrumentos().add(e);
+        } catch (Exception ex) {
+            throw new Exception("Instrumento no existe");
+        }
+    }
+
+    public void deleteInstrumento(Instrumento e) throws Exception {
+        data.getInstrumentos().remove(e);
+    }
+
+    public List<Instrumento> searchInstrumento(Instrumento e) {
+        return data.getInstrumentos().stream()
+                .filter(i -> i.getDescripcion().contains(e.getDescripcion()))
+                .sorted(Comparator.comparing(Instrumento::getDescripcion))
+                .collect(Collectors.toList());
+    }
+
+    public void generatePDFReport(List<?> objects) throws Exception {
+        String outputFilePath = reportFileName(objects);
+
 
         PdfDocument pdfDocument = new PdfDocument(new PdfWriter(new FileOutputStream(outputFilePath)));
         Document document = new Document(pdfDocument);
@@ -82,21 +125,57 @@ public class Service {
         Image img = new Image(ImageDataFactory.create(Objects.requireNonNull(Application.class.getResource("presentation/icons/pdf (1).png"))));
         document.add(img);
 
-        Paragraph title = new Paragraph("Reporte de Tipos de Instrumento")
+        String titleText = "Reporte";
+        if (!objects.isEmpty()) {
+            Object firstObject = objects.get(0);
+            titleText += " de " + firstObject.getClass().getSimpleName() + "s";
+        }
+
+        Paragraph title = new Paragraph(titleText)
                 .setTextAlignment(TextAlignment.CENTER)
                 .setBold()
                 .setFontSize(24);
         document.add(title);
 
-        for (TipoInstrumento tipo : tipos) {
-            document.add(new Paragraph("Código: " + tipo.getCodigo()));
-            document.add(new Paragraph("Nombre: " + tipo.getNombre()));
-            document.add(new Paragraph("Unidad: " + tipo.getUnidad()));
+        for (Object obj : objects) {
+            Field[] fields = obj.getClass().getDeclaredFields();
+            for (Field field : fields) {
+                field.setAccessible(true); // Permitir el acceso a campos privados
+                String propertyName = field.getName();
+                Object propertyValue = field.get(obj);
+
+                if (propertyValue != null) {
+                    document.add(new Paragraph(propertyName + ": " + propertyValue.toString()));
+                }
+            }
             document.add(new Paragraph("----------------------------------"));
         }
 
         document.close();
     }
 
+    public TipoInstrumento obtenerTipoInstrumentoPorCodigo(String codigo, String filePath) {
+        List<TipoInstrumento> tipos = data.getTipos();
+        return tipos.stream()
+                .filter(t -> t.getCodigo().equals(codigo))
+                .findFirst()
+                .orElse(null);
+    }
 
- }
+    private String reportFileName(List<?> objects) {
+        if (objects.isEmpty()) {
+            return "files/default_report.pdf";
+        }
+
+        Object firstObject = objects.get(0);
+        if (firstObject instanceof TipoInstrumento) {
+            return "files/tipo_instrumento_report.pdf";
+        } else if (firstObject instanceof Instrumento) {
+            return "files/instrumento_report.pdf";
+        }// else if (firstObject instanceof Calibracion) {
+           // return "files/calibracion_report.pdf";
+        //} else {
+            return "files/default_report.pdf";
+        }
+}
+
