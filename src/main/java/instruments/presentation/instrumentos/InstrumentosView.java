@@ -7,7 +7,6 @@ import instruments.logic.TipoInstrumento;
 import instruments.logic.TipoInstrumentoXMLManager;
 
 import javax.swing.*;
-import javax.swing.Timer;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.event.*;
@@ -30,12 +29,15 @@ public class InstrumentosView implements Observer {
     private JButton searchInstrumentos;
     private JButton reportInstruments;
     private JButton deleteInstruments;
+    private JTextField searchDescription;
     private JPanel panelInstrumento;
 
 
     public InstrumentosView() {
 
         List<TipoInstrumento> tiposInstrumento = tipoInstrumentoList();
+
+        deleteInstruments.setEnabled(false);
 
         saveInstrumentos.addActionListener(new ActionListener() {
             @Override
@@ -109,6 +111,20 @@ public class InstrumentosView implements Observer {
                     JOptionPane.showMessageDialog(panel, "Reporte generado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(panel, "Error al generar el reporte: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+        searchInstrumentos.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+
+                    ButtonUtils.fixColorTextFields(serie,descripcion,tolerancia,maximo,minimo);
+                    Instrumento filter= new Instrumento();
+                    filter.setDescripcion(searchDescription.getText());
+                    instrumentosController.search(filter);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(panel, ex.getMessage(), "Información", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
