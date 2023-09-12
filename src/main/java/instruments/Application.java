@@ -1,5 +1,8 @@
 package instruments;
 
+import instruments.presentation.calibraciones.CalibracionController;
+import instruments.presentation.calibraciones.CalibracionModel;
+import instruments.presentation.calibraciones.CalibracionView;
 import instruments.presentation.instrumentos.InstrumentosController;
 import instruments.presentation.instrumentos.InstrumentosModel;
 import instruments.presentation.instrumentos.InstrumentosView;
@@ -19,10 +22,6 @@ public class Application {
         JFrame window = new JFrame();
         JTabbedPane tabbedPane = new JTabbedPane();
 
-        InstrumentosModel instrumentosModel = new InstrumentosModel();
-        InstrumentosView instrumentosView = new InstrumentosView();
-        InstrumentosController instrumentosController = new InstrumentosController(instrumentosView, instrumentosModel);
-
         // Panel para "Tipos de Instrumento"
         TiposModel tiposModel = new TiposModel();
         TiposView tiposView = new TiposView();
@@ -30,13 +29,22 @@ public class Application {
         tabbedPane.addTab("Tipos de Instrumento", tiposView.getPanel());
 
         // Panel para "Instrumentos"
-        JPanel calibracionesPanel = new JPanel();
+        InstrumentosModel instrumentosModel = new InstrumentosModel();
+        InstrumentosView instrumentosView = new InstrumentosView();
+        InstrumentosController instrumentosController = new InstrumentosController(instrumentosView, instrumentosModel);
+
+
+        // Panel para "Calibraciones"
+        CalibracionModel calibracionModel = new CalibracionModel();
+        CalibracionView calibracionView = new CalibracionView();
+        CalibracionController calibracionController = new CalibracionController(calibracionView, calibracionModel);
+
         JPanel acercaDePanel = new JPanel();
 
 
 
         tabbedPane.addTab("Instrumentos", instrumentosView.getPanel());
-        tabbedPane.addTab("Calibraciones", calibracionesPanel);
+        tabbedPane.addTab("Calibraciones", calibracionView.getCalibracionesPanel());
         tabbedPane.addTab("Acerca de", acercaDePanel);
 
         window.getContentPane().add(tabbedPane);

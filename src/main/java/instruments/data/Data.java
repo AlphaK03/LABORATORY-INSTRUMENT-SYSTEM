@@ -1,5 +1,6 @@
 package instruments.data;
 
+import instruments.logic.Calibracion;
 import instruments.logic.Instrumento;
 import instruments.logic.TipoInstrumento;
 import instruments.logic.TipoInstrumentoXMLManager;
@@ -11,9 +12,12 @@ public class Data {
     private List<TipoInstrumento> tipos;
     private List<Instrumento> instrumentos;
 
+    private List<Calibracion> calibraciones;
+
     public Data() {
         tipos = new ArrayList<>();
         instrumentos = new ArrayList<>();
+        calibraciones = new ArrayList<>();
         cargarDatosDesdeXML();
         cargarInstrumentosDesdeXML();
     }
@@ -25,6 +29,9 @@ public class Data {
     public List<Instrumento> getInstrumentos() {
         return instrumentos;
     }
+
+
+    public List<Calibracion> getCalibraciones() { return calibraciones; }
 
     public void addTipoInstrumento(TipoInstrumento tipo) {
         tipos.add(tipo);
