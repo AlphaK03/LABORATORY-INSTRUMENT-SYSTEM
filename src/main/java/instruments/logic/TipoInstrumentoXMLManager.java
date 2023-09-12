@@ -131,7 +131,7 @@ public class TipoInstrumentoXMLManager {
 
                 // TipoInstrumento (asumiendo que el tipo se guarda como código)
                 Element tipoInstrumentoElement = doc.createElement("tipoInstrumento");
-                tipoInstrumentoElement.appendChild(doc.createTextNode(instrumento.getTipoInstrumento().getNombre()));
+                tipoInstrumentoElement.appendChild(doc.createTextNode(instrumento.getTipoInstrumento().getCodigo()));
                 instrumentoElement.appendChild(tipoInstrumentoElement);
             }
 
@@ -195,12 +195,146 @@ public class TipoInstrumentoXMLManager {
 
 
     // Función para obtener un TipoInstrumento por su código
-    private static TipoInstrumento obtenerTipoInstrumentoPorNombre(String nombres, String filePath) {
+    private static TipoInstrumento obtenerTipoInstrumentoPorNombre(String codigo, String filePath) {
         List<TipoInstrumento> tipos = cargarTiposInstrumento(filePath);
         return tipos.stream()
-                .filter(t -> t.getNombre().equals(nombres))
+                .filter(t -> t.getNombre().equals(codigo))
                 .findFirst()
                 .orElse(null);
     }
 
+
+    public static void guardarCalibraciones(List<Calibracion> calibraciones, String filePath) {
+        try {
+            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+
+            Document doc = docBuilder.newDocument();
+            Element rootElement = doc.createElement("calibraciones");
+            doc.appendChild(rootElement);
+
+            for (Calibracion calibracion : calibraciones) {
+                Element calibracionElement = doc.createElement("calibracion");
+                rootElement.appendChild(calibracionElement);
+
+                // Número
+                Element numeroElement = doc.createElement("numero");
+                numeroElement.appendChild(doc.createTextNode(String.valueOf(calibracion.getNumero())));
+                calibracionElement.appendChild(numeroElement);
+
+                // Fecha
+                Element fechaElement = doc.createElement("fecha");
+                fechaElement.appendChild(doc.createTextNode(calibracion.getFecha()));
+                calibracionElement.appendChild(fechaElement);
+
+                // CantidadMediciones
+                Element cantidadMedicionesElement = doc.createElement("cantidadMediciones");
+                cantidadMedicionesElement.appendChild(doc.createTextNode(String.valueOf(calibracion.getCantidadMediciones())));
+                calibracionElement.appendChild(cantidadMedicionesElement);
+
+                // InstrumentoCalibrado (assuming you save it as the Serie of the Instrumento)
+                Element instrumentoCalibradoElement = doc.createElement("instrumentoCalibrado");
+                instrumentoCalibradoElement.appendChild(doc.createTextNode(calibracion.getInstrumentoCalibrado().getSerie()));
+                calibracionElement.appendChild(instrumentoCalibradoElement);
+
+                // Mediciones
+                for (Medicion medicion : calibracion.getMediciones()) {
+                    Element medicionElement = doc.createElement("medicion");
+                    calibracionElement.appendChild(medicionElement);
+
+                    // ValorReferencia
+                    Element valorReferenciaElement = doc.createElement("valorReferencia");
+                    valorReferenciaElement.appendChild(doc.createTextNode(String.valueOf(medicion.getValorReferencia())));
+                    medicionElement.appendChild(valorReferenciaElement);
+
+                    // ValorLectura
+                    Element valorLecturaElement = doc.createElement("valorLectura");
+                    valorLecturaElement.appendChild(doc.createTextNode(String.valueOf(medicion.getValorLectura())));
+                    medicionElement.appendChild(valorLecturaElement);
+                }
+            }
+
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(new File(filePath));
+
+            transformer.transform(source, result);
+
+        } catch (ParserConfigurationException | TransformerException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static List<Calibracion> cargarCalibraciones(String filePath, List<Instrumento> instrumentos) {
+        List<Calibracion> calibraciones = new ArrayList<>();
+
+        try {
+            File file = new File(filePath);
+            if (file.exists()) {
+                DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+                Document doc = dBuilder.parse(file);
+
+                NodeList calibracionNodes = doc.getElementsByTagName("calibracion");
+
+                for (int i = 0; i < calibracionNodes.getLength(); i++) {
+                    Node calibracionNode = calibracionNodes.item(i);
+
+                    if (calibracionNode.getNodeType() == Node.ELEMENT_NODE) {
+                        Element calibracionElement = (Element) calibracionNode;
+
+                        int numero = Integer.parseInt(calibracionElement.getElementsByTagName("numero").item(0).getTextContent());
+                        String fecha = calibracionElement.getElementsByTagName("fecha").item(0).getTextContent();
+                        int cantidadMediciones = Integer.parseInt(calibracionElement.getElementsByTagName("cantidadMediciones").item(0).getTextContent());
+                        String serieInstrumento = calibracionElement.getElementsByTagName("instrumentoCalibrado").item(0).getTextContent();
+
+                        // Find the Instrumento object corresponding to the serie
+                        Instrumento instrumentoCalibrado = obtenerInstrumentoPorSerie(serieInstrumento, instrumentos);
+
+                        if (instrumentoCalibrado != null) {
+                            Calibracion calibracion = new Calibracion();
+                            calibracion.setNumero(numero);
+                            calibracion.setFecha(fecha);
+                            calibracion.setCantidadMediciones(cantidadMediciones);
+                            calibracion.setInstrumentoCalibrado(instrumentoCalibrado);
+
+                            // Inicializar la lista de mediciones
+                            calibracion.setMediciones(new ArrayList<>());
+
+                            NodeList medicionNodes = calibracionElement.getElementsByTagName("medicion");
+
+                            for (int j = 0; j < cantidadMediciones; j++) {
+                                // Inicializar los objetos de medición con valores por defecto (puedes ajustarlos según tus necesidades)
+                                double valorReferencia = 0.0;
+                                double valorLectura = 0.0;
+
+                                Medicion medicion = new Medicion(valorReferencia, valorLectura);
+                                calibracion.getMediciones().add(medicion);
+                            }
+
+                            calibraciones.add(calibracion);
+                        }
+                    }
+                }
+            }
+        } catch (ParserConfigurationException | SAXException | IOException ex) {
+            ex.printStackTrace();
+        }
+
+        return calibraciones;
+    }
+
+
+    // Function to find an Instrumento by its serie
+    private static Instrumento obtenerInstrumentoPorSerie(String serie, List<Instrumento> instrumentos) {
+        return instrumentos.stream()
+                .filter(i -> i.getSerie().equals(serie))
+                .findFirst()
+                .orElse(null);
+    }
 }
+
+

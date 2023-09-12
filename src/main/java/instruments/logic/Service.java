@@ -155,11 +155,14 @@ public class Service {
     }
 
     public List<Calibracion> searchCalibracion(Calibracion e) {
+
+        //No esta funcionando, no recupera ningun dato
         return data.getCalibraciones().stream()
-                .filter(i -> i.getNumero() == e.getNumero()) // Use equality for int comparison
-                .sorted(Comparator.comparing(Calibracion::getNumero))
+                .filter(i -> i.getNumero() == e.getNumero())
+                .sorted(Comparator.comparingInt(Calibracion::getNumero))
                 .collect(Collectors.toList());
     }
+
 
 
     public void generatePDFReport(List<?> objects) throws Exception {

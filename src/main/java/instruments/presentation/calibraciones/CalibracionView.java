@@ -1,12 +1,7 @@
 package instruments.presentation.calibraciones;
 
 
-import instruments.logic.Instrumento;
-import instruments.logic.TipoInstrumento;
-import instruments.logic.TipoInstrumentoXMLManager;
-import instruments.presentation.instrumentos.InstrumentosModel;
-import instruments.presentation.instrumentos.InstrumentosTableModel;
-import instruments.presentation.instrumentos.InstrumentosView;
+import instruments.logic.*;
 
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
@@ -64,8 +59,65 @@ public class CalibracionView implements Observer {
             }
         });
 
-    }
+        saveCalibraciones.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Calibracion calibracion = new Calibracion();
 
+                String numeroText = numero.getText();
+                String medicionesText = mediciones.getText();
+
+                if (isNumeric(numeroText) || isNumeric(medicionesText)) {
+                    JOptionPane.showMessageDialog(calibracionesPanel, "Coloque únicamente números en los campos de 'Número' y 'Mediciones'.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                calibracion.setFecha(fecha.getText());
+                calibracion.setNumero(Integer.parseInt(numeroText));
+                calibracion.setCantidadMediciones(Integer.parseInt(medicionesText));
+                calibracion.setInstrumentoCalibrado(calibracionController.lastSelectedInstrumento);
+
+                deleteCalibraciones.setEnabled(false);
+
+                try {
+                    if (numero.isEnabled()) {
+                        calibracionController.create(calibracion);
+                        calibracionController.update(calibracion);
+                    } else {
+                        calibracionController.update(calibracion);
+                    }
+                    numero.setEnabled(true);
+                    ButtonUtils.clearFields(numero, fecha, mediciones);
+                    numero.setText("");
+                    fecha.setText("");
+                    mediciones.setText("");
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(calibracionesPanel, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        searchCalibraciones.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+
+                    ButtonUtils.fixColorTextFields(numero, fecha, mediciones);
+                    Calibracion filter= new Calibracion();
+                    filter.setNumero(Integer.parseInt(searchCalibraciones.getText()));
+                    calibracionController.search(filter);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(calibracionesPanel, ex.getMessage(), "Información", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        });
+    }
+    private boolean isNumeric(String str) {
+        if (str == null || str.isEmpty()) {
+            return true;
+        }
+        return !str.chars().allMatch(Character::isDigit);
+    }
     public JPanel getCalibracionesPanel() {
         return calibracionesPanel;
     }

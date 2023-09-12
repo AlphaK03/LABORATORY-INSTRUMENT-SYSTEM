@@ -20,6 +20,7 @@ public class Data {
         calibraciones = new ArrayList<>();
         cargarDatosDesdeXML();
         cargarInstrumentosDesdeXML();
+        cargarCalibracionesDesdeXML();
     }
 
     public List<TipoInstrumento> getTipos() {
@@ -78,5 +79,17 @@ public class Data {
             e.printStackTrace();
         }
     }
+
+    private void cargarCalibracionesDesdeXML() {
+        try {
+            this.calibraciones = TipoInstrumentoXMLManager.cargarCalibraciones("files/XMLData/Calibraciones.xml", instrumentos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
+
+
 

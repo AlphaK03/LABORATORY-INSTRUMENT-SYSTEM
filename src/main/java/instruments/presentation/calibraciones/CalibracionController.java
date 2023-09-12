@@ -4,6 +4,7 @@ package instruments.presentation.calibraciones;
 import instruments.logic.Calibracion;
 import instruments.logic.Instrumento;
 import instruments.logic.Service;
+import instruments.logic.TipoInstrumentoXMLManager;
 
 import java.util.List;
 
@@ -68,8 +69,7 @@ public class CalibracionController {
     }
 
     public void saveData() {
-        // Adjust the XML data saving method for Calibracion objects if necessary
-        // CalibracionXMLManager.guardarCalibracion(calibracionModel.getList(), "files/XMLData/Calibracion.xml");
+       TipoInstrumentoXMLManager.guardarCalibraciones(calibracionModel.getList(), "files/XMLData/Calibraciones.xml");
     }
 
     public void generatePDFReport(List<Calibracion> calibracion) throws Exception {
