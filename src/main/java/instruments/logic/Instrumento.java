@@ -73,14 +73,7 @@ public class Instrumento {
 
     @Override
     public String toString() {
-        return "Instrumento{" +
-                "serie='" + serie + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                ", tolerancia=" + tolerancia +
-                ", maximo=" + maximo +
-                ", minimo=" + minimo +
-                ", tipoInstrumento=" + tipoInstrumento +
-                '}';
+        return serie + " - " + descripcion + "( " + minimo + " - " + maximo + " " + tipoInstrumento.getUnidad() + " )";
     }
 
     public String getToleranciaAsString() {

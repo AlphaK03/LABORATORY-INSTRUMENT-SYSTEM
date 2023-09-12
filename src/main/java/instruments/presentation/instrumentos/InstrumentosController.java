@@ -11,6 +11,9 @@ public class InstrumentosController {
     InstrumentosView instrumentosView;
     InstrumentosModel instrumentosModel;
 
+
+
+
     public InstrumentosController(InstrumentosView view, InstrumentosModel model) {
         model.init(Service.instance().searchInstrumento(new Instrumento()));
         this.instrumentosView = view;
@@ -39,6 +42,8 @@ public class InstrumentosController {
     public void delete(Instrumento instrumento) throws Exception {
         Service.instance().deleteInstrumento(instrumento);
         instrumentosModel.delete(instrumento);
+        instrumentosModel.current = null;
+        onSelectInstrumento();
     }
 
     public void create(Instrumento instrumento) {
@@ -66,4 +71,8 @@ public class InstrumentosController {
         Service.instance().generatePDFReport(instrumentos);
     }
 
+
+    public void onSelectInstrumento() {
+        Service.instance().onSelectInstrumento(instrumentosModel.getCurrent());
+    }
 }

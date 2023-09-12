@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 
 public class Service {
     private static Service theInstance;
+    private Instrumento lastSelectedInstrumento;
 
     public static Service instance() {
         if (theInstance == null) theInstance = new Service();
@@ -115,6 +116,52 @@ public class Service {
                 .collect(Collectors.toList());
     }
 
+
+    // Funciones para Calibracion
+    public void createCalibracion(Calibracion e) throws Exception {
+        boolean exists = data.getCalibraciones().stream()
+                .anyMatch(i -> i.getNumero() == e.getNumero());
+
+        if (!exists) {
+            data.getCalibraciones().add(e);
+        } else {
+            throw new Exception("Calibracion ya existe");
+        }
+    }
+
+
+    public Calibracion readCalibracion(Calibracion e) throws Exception {
+        Calibracion result = data.getCalibraciones().stream()
+                .filter(i -> i.getNumero() == e.getNumero()) // Directly compare ints
+                .findFirst()
+                .orElse(null);
+        if (result != null) return result;
+        else throw new Exception("Calibracion no existe");
+    }
+
+    public void updateCalibracion(Calibracion e) throws Exception {
+        Calibracion result;
+        try {
+            result = this.readCalibracion(e);
+            data.getCalibraciones().remove(result);
+            data.getCalibraciones().add(e);
+        } catch (Exception ex) {
+            throw new Exception("Calibracion no existe");
+        }
+    }
+
+    public void deleteCalibracion(Calibracion e) throws Exception {
+        data.getCalibraciones().remove(e);
+    }
+
+    public List<Calibracion> searchCalibracion(Calibracion e) {
+        return data.getCalibraciones().stream()
+                .filter(i -> i.getNumero() == e.getNumero()) // Use equality for int comparison
+                .sorted(Comparator.comparing(Calibracion::getNumero))
+                .collect(Collectors.toList());
+    }
+
+
     public void generatePDFReport(List<?> objects) throws Exception {
         String outputFilePath = reportFileName(objects);
 
@@ -172,10 +219,20 @@ public class Service {
             return "files/PdfReports/tipo_instrumento_report.pdf";
         } else if (firstObject instanceof Instrumento) {
             return "files/PdfReports/instrumento_report.pdf";
-        }// else if (firstObject instanceof Calibracion) {
-           // return "files/PdfReports/calibracion_report.pdf";
-        //} else {
+        } else if (firstObject instanceof Calibracion) {
+            return "files/PdfReports/calibracion_report.pdf";
+        } else {
             return "files/PdfReports/default_report.pdf";
         }
+    }
+
+
+    public void onSelectInstrumento(Instrumento instrumento) {
+        lastSelectedInstrumento = instrumento;
+    }
+
+    public Instrumento getLastSelectedInstrumentoSelectInstrumento() {
+        return  lastSelectedInstrumento;
+    }
 }
 

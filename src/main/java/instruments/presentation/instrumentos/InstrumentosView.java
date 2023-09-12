@@ -20,6 +20,11 @@ public class InstrumentosView implements Observer {
 
     private JScrollPane tableModel;
     private JTable list;
+
+    public JTable getList() {
+        return list;
+    }
+
     private JButton saveInstrumentos;
     private JButton clearInstrumentos;
     private JTextField serie;
@@ -77,6 +82,7 @@ public class InstrumentosView implements Observer {
                     tolerancia.setText("0.0");
                     maximo.setText("0.0");
                     minimo.setText("0.0");
+                    instrumentosController.onSelectInstrumento();
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(panel, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -90,6 +96,8 @@ public class InstrumentosView implements Observer {
                 int selectedRowCount = list.getSelectedRowCount();
                 deleteInstruments.setEnabled(selectedRowCount > 0);
                 ButtonUtils.fixColorTextFields(serie, descripcion, tolerancia, maximo, minimo);
+                instrumentosController.onSelectInstrumento();
+
             }
         });
 
@@ -99,6 +107,8 @@ public class InstrumentosView implements Observer {
                 int selectedRow = list.getSelectedRow();
                 if (selectedRow >= 0) {
                     instrumentosController.edit(selectedRow);
+                    instrumentosController.onSelectInstrumento();
+
                 }
             }
         });
@@ -172,6 +182,7 @@ public class InstrumentosView implements Observer {
                     JOptionPane.showMessageDialog(panel, "No item selected.", "Warning", JOptionPane.WARNING_MESSAGE);
                 }
                 instrumentosController.saveData();
+                instrumentosController.onSelectInstrumento();
             }
         });
     }
