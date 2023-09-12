@@ -113,6 +113,7 @@ public class InstrumentosView implements Observer {
             }
         });
 
+
         clearInstrumentos.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
