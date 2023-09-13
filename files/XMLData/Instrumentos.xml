@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<instrumentos>
+    <instrumento>
+        <serie>76236</serie>
+        <descripcion>Instrumento para medición de temperatura.</descripcion>
+        <tolerancia>10.0</tolerancia>
+        <maximo>90.0</maximo>
+        <minimo>0.0</minimo>
+        <tipoInstrumento>Termómetro</tipoInstrumento>
+    </instrumento>
+    <instrumento>
+        <serie>53453</serie>
+        <descripcion>Instrumento para medición de temperatura.</descripcion>
+        <tolerancia>10.0</tolerancia>
+        <maximo>0.0</maximo>
+        <minimo>0.0</minimo>
+        <tipoInstrumento>Barómetro</tipoInstrumento>
+    </instrumento>
+</instrumentos>

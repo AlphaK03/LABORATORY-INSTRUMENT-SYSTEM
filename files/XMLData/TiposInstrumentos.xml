@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tipos_instrumento>
+    <tipo>
+        <codigo>BAR</codigo>
+        <nombre>Barómetro</nombre>
+        <unidad>PSI</unidad>
+    </tipo>
+    <tipo>
+        <codigo>CRO</codigo>
+        <nombre>Cronómetro</nombre>
+        <unidad>Milisegundos</unidad>
+    </tipo>
+    <tipo>
+        <codigo>KEY</codigo>
+        <nombre>Keylómetro</nombre>
+        <unidad>Kepi</unidad>
+    </tipo>
+    <tipo>
+        <codigo>TER</codigo>
+        <nombre>Termómetro</nombre>
+        <unidad>Grados Celsius</unidad>
+    </tipo>
+</tipos_instrumento>

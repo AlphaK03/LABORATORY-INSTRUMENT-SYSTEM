@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<calibraciones>
+    <calibracion>
+        <numero>33</numero>
+        <fecha>feeee</fecha>
+        <cantidadMediciones>4</cantidadMediciones>
+        <instrumentoCalibrado>76236</instrumentoCalibrado>
+    </calibracion>
+</calibraciones>
