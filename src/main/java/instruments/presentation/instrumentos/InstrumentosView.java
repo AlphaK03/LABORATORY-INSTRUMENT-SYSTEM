@@ -113,10 +113,11 @@ public class InstrumentosView implements Observer {
             }
         });
 
+
         clearInstrumentos.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ButtonUtils.clearFields(serie, descripcion);
+                ButtonUtils.clearFields(serie, descripcion, searchDescription);
                 ButtonUtils.fixColorTextFields(serie, descripcion, tolerancia, maximo, minimo);
                 tolerancia.setText("0.0");
                 maximo.setText("0.0");

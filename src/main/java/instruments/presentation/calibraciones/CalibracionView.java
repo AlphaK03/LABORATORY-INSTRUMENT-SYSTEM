@@ -111,6 +111,14 @@ public class CalibracionView implements Observer {
                 }
             }
         });
+        clearCalibraciones.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ButtonUtils.clearFields(numero, mediciones, fecha, searchDescription);
+                ButtonUtils.fixColorTextFields(numero, mediciones, fecha);
+                deleteCalibraciones.setEnabled(false);
+            }
+        });
     }
     private boolean isNumeric(String str) {
         if (str == null || str.isEmpty()) {
