@@ -1,6 +1,7 @@
 package instruments.presentation.calibraciones;
 
 import instruments.logic.Calibracion; // Importa la clase Instrumento en lugar de TipoInstrumento
+import instruments.logic.Medicion;
 
 import java.util.List;
 import java.util.Observer;
@@ -29,7 +30,7 @@ public class CalibracionModel extends java.util.Observable {
 
     public void init(List<Calibracion> list) {
         setList(list);
-        setCurrent(new Calibracion()); // Crea una instancia de Instrumento en lugar de TipoInstrumento
+        setCurrent(new Calibracion());
     }
 
     public List<Calibracion> getList() {
@@ -47,7 +48,7 @@ public class CalibracionModel extends java.util.Observable {
 
     public void setCurrent(Calibracion current) {
         changedProps += CURRENT;
-        this.current = current;
+        CalibracionModel.current = current;
     }
 
     public void delete(Calibracion instrumento) {
@@ -71,6 +72,19 @@ public class CalibracionModel extends java.util.Observable {
         setChanged();
         notifyObservers(LIST);
     }
+
+    public void updateMedicion(Medicion medicion) {
+        // Busca la medicion en la lista y actualiza su valor de lectura
+        for (int i = 0; i < current.getMediciones().size(); i++) {
+            if (current.getMediciones().get(i) == medicion) {
+                current.getMediciones().set(i, medicion);
+                break;
+            }
+        }
+        changedProps |= CURRENT;
+        commit();
+    }
+
 
     public static int NONE = 0;
     public static int LIST = 1;

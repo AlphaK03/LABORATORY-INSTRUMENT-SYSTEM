@@ -12,6 +12,7 @@ import instruments.data.Data;
 
 import java.io.FileOutputStream;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -21,6 +22,8 @@ public class Service {
     private static Service theInstance;
     private Instrumento lastSelectedInstrumento;
 
+    private List<Medicion> medicionesList;
+
     public static Service instance() {
         if (theInstance == null) theInstance = new Service();
         return theInstance;
@@ -29,7 +32,16 @@ public class Service {
     private Data data;
 
     private Service() {
+        medicionesList = new ArrayList<>();
         data = new Data();
+    }
+
+    public List<Medicion> getMedicionesList() {
+        return medicionesList;
+    }
+
+    public void setMedicionesList(List<Medicion> medicionesList) {
+        this.medicionesList = medicionesList;
     }
 
     // Funciones para TipoInstrumento
@@ -155,12 +167,8 @@ public class Service {
     }
 
     public List<Calibracion> searchCalibracion(Calibracion e) {
-
         //No esta funcionando, no recupera ningun dato
-        return data.getCalibraciones().stream()
-                .filter(i -> i.getNumero() == e.getNumero())
-                .sorted(Comparator.comparingInt(Calibracion::getNumero))
-                .collect(Collectors.toList());
+        return data.getCalibraciones();
     }
 
 

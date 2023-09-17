@@ -1,19 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <instrumentos>
     <instrumento>
-        <serie>76236</serie>
-        <descripcion>Instrumento para medición de temperatura.</descripcion>
-        <tolerancia>10.0</tolerancia>
-        <maximo>90.0</maximo>
+        <serie>11231</serie>
+        <descripcion>4143e</descripcion>
+        <tolerancia>3.0</tolerancia>
+        <maximo>45.0</maximo>
         <minimo>0.0</minimo>
-        <tipoInstrumento>Termómetro</tipoInstrumento>
+        <tipoInstrumento>CRO</tipoInstrumento>
     </instrumento>
     <instrumento>
-        <serie>53453</serie>
-        <descripcion>Instrumento para medición de temperatura.</descripcion>
-        <tolerancia>10.0</tolerancia>
+        <serie>002</serie>
+        <descripcion>Mide Temperatura</descripcion>
+        <tolerancia>0.0</tolerancia>
         <maximo>0.0</maximo>
         <minimo>0.0</minimo>
-        <tipoInstrumento>Barómetro</tipoInstrumento>
+        <tipoInstrumento>TER</tipoInstrumento>
+    </instrumento>
+    <instrumento>
+        <serie>001</serie>
+        <descripcion>Mide tiempod</descripcion>
+        <tolerancia>0.0</tolerancia>
+        <maximo>0.0</maximo>
+        <minimo>90.0</minimo>
+        <tipoInstrumento>BAR</tipoInstrumento>
+    </instrumento>
+    <instrumento>
+        <serie>888</serie>
+        <descripcion>fff</descripcion>
+        <tolerancia>1.0</tolerancia>
+        <maximo>90.0</maximo>
+        <minimo>0.0</minimo>
+        <tipoInstrumento>BAR</tipoInstrumento>
     </instrumento>
 </instrumentos>

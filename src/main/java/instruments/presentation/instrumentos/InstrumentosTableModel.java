@@ -1,12 +1,12 @@
 package instruments.presentation.instrumentos;
 
-import instruments.logic.Instrumento; // Importa la clase Instrumento en lugar de TipoInstrumento
+import instruments.logic.Instrumento;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
 public class InstrumentosTableModel extends AbstractTableModel implements javax.swing.table.TableModel {
-    List<Instrumento> rows; // Cambia el tipo de List a Instrumento
+    List<Instrumento> rows;
     int[] cols;
 
     public InstrumentosTableModel(int[] cols, List<Instrumento> rows) {
@@ -47,7 +47,7 @@ public class InstrumentosTableModel extends AbstractTableModel implements javax.
             case MINIMO:
                 return instrumento.getMinimo();
             case TIPO_INSTRUMENTO:
-                return instrumento.getTipoInstrumento().getNombre(); // Si deseas mostrar el nombre del TipoInstrumento
+                return instrumento.getTipoInstrumento().getNombre();
             default:
                 return "";
         }
@@ -62,15 +62,15 @@ public class InstrumentosTableModel extends AbstractTableModel implements javax.
     public static final int TOLERANCIA = 2;
     public static final int MAXIMO = 3;
     public static final int MINIMO = 4;
-    public static final int TIPO_INSTRUMENTO = 5; // Si deseas mostrar el nombre del TipoInstrumento
+    public static final int TIPO_INSTRUMENTO = 5;
 
-    String[] colNames = new String[6]; // Asegúrate de que el tamaño sea igual al número de columnas
+    String[] colNames = new String[6];
     private void initColNames() {
-        colNames[SERIE] = "Serie"; // Cambia el nombre de la columna
+        colNames[SERIE] = "Serie";
         colNames[DESCRIPCION] = "Descripción";
         colNames[TOLERANCIA] = "Tolerancia";
         colNames[MAXIMO] = "Máximo";
         colNames[MINIMO] = "Mínimo";
-        colNames[TIPO_INSTRUMENTO] = "Tipo de Instrumento"; // Cambia el nombre de la columna
+        colNames[TIPO_INSTRUMENTO] = "Tipo de Instrumento";
     }
 }

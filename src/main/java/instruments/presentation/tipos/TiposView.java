@@ -63,7 +63,7 @@ public class TiposView implements Observer {
                 int selectedRowCount = list.getSelectedRowCount();
                 delete.setEnabled(selectedRowCount > 0);
                 ButtonUtils.fixColorTextFields(codigo,unidad,nombre);
-
+                enableEditing();
             }
         });
 

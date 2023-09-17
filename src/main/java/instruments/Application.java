@@ -62,6 +62,7 @@ public class Application {
             public void windowClosing(WindowEvent e) {
                 tiposController.saveData();
                 instrumentosController.saveData();
+               // calibracionController.saveData();
             }
         });
     }

@@ -42,6 +42,7 @@ public class ButtonUtils {
     public static void fixColorTextFields(JTextField... fields){
         for (JTextField field : fields) {
             field.setBackground(Color.WHITE);
+            field.setText("");
         }
     }
 

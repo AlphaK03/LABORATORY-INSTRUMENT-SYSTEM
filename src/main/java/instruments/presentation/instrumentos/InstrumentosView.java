@@ -78,10 +78,7 @@ public class InstrumentosView implements Observer {
                         instrumentosController.update(instrumento);
                     }
                     serie.setEnabled(true);
-                    ButtonUtils.clearFields(serie, descripcion);
-                    tolerancia.setText("0.0");
-                    maximo.setText("0.0");
-                    minimo.setText("0.0");
+                    ButtonUtils.clearFields(serie, descripcion, tolerancia, maximo, minimo);
                     instrumentosController.onSelectInstrumento();
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(panel, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -97,7 +94,8 @@ public class InstrumentosView implements Observer {
                 deleteInstruments.setEnabled(selectedRowCount > 0);
                 ButtonUtils.fixColorTextFields(serie, descripcion, tolerancia, maximo, minimo);
                 instrumentosController.onSelectInstrumento();
-
+                serie.setEnabled(false);
+                enableEditing();
             }
         });
 
@@ -117,12 +115,10 @@ public class InstrumentosView implements Observer {
         clearInstrumentos.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ButtonUtils.clearFields(serie, descripcion, searchDescription);
+                ButtonUtils.clearFields(serie, descripcion, searchDescription, tolerancia, maximo, minimo);
                 ButtonUtils.fixColorTextFields(serie, descripcion, tolerancia, maximo, minimo);
-                tolerancia.setText("0.0");
-                maximo.setText("0.0");
-                minimo.setText("0.0");
                 deleteInstruments.setEnabled(false);
+                serie.setEnabled(true);
             }
         });
 

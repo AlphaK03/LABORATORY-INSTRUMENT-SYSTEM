@@ -54,7 +54,6 @@ public class CalibracionController {
     public void create(Calibracion calibracion) {
         try {
             Service.instance().createCalibracion(calibracion);
-            calibracionModel.getList().add(calibracion);
             calibracionModel.commit();
             saveData();
         } catch (Exception ex) {

@@ -173,10 +173,10 @@ public class TipoInstrumentoXMLManager {
                         double tolerancia = Double.parseDouble(instrumentoElement.getElementsByTagName("tolerancia").item(0).getTextContent());
                         double maximo = Double.parseDouble(instrumentoElement.getElementsByTagName("maximo").item(0).getTextContent());
                         double minimo = Double.parseDouble(instrumentoElement.getElementsByTagName("minimo").item(0).getTextContent());
-                        String tipoInstrumentoNombre = instrumentoElement.getElementsByTagName("tipoInstrumento").item(0).getTextContent();
+                        String tipoInstrumentoCodigo = instrumentoElement.getElementsByTagName("tipoInstrumento").item(0).getTextContent();
 
                         // En este punto, debes buscar el TipoInstrumento correspondiente en tu lista de TipoInstrumento cargada previamente
-                        TipoInstrumento tipoInstrumento = obtenerTipoInstrumentoPorNombre(tipoInstrumentoNombre, "files/XMLData/TiposInstrumentos.xml");
+                        TipoInstrumento tipoInstrumento = obtenerTipoInstrumentoPorCodigo(tipoInstrumentoCodigo, "files/XMLData/TiposInstrumentos.xml");
 
                         if (tipoInstrumento != null) {
                             Instrumento instrumento = new Instrumento(serie, descripcion, tolerancia, maximo, minimo, tipoInstrumento);
@@ -195,13 +195,14 @@ public class TipoInstrumentoXMLManager {
 
 
     // Función para obtener un TipoInstrumento por su código
-    private static TipoInstrumento obtenerTipoInstrumentoPorNombre(String codigo, String filePath) {
+    private static TipoInstrumento obtenerTipoInstrumentoPorCodigo(String codigo, String filePath) {
         List<TipoInstrumento> tipos = cargarTiposInstrumento(filePath);
         return tipos.stream()
-                .filter(t -> t.getNombre().equals(codigo))
+                .filter(t -> t.getCodigo().equals(codigo))
                 .findFirst()
                 .orElse(null);
     }
+
 
 
     public static void guardarCalibraciones(List<Calibracion> calibraciones, String filePath) {
@@ -268,6 +269,7 @@ public class TipoInstrumentoXMLManager {
         }
     }
 
+
     public static List<Calibracion> cargarCalibraciones(String filePath, List<Instrumento> instrumentos) {
         List<Calibracion> calibraciones = new ArrayList<>();
 
@@ -306,26 +308,33 @@ public class TipoInstrumentoXMLManager {
 
                             NodeList medicionNodes = calibracionElement.getElementsByTagName("medicion");
 
-                            for (int j = 0; j < cantidadMediciones; j++) {
-                                // Inicializar los objetos de medición con valores por defecto (puedes ajustarlos según tus necesidades)
-                                double valorReferencia = 0.0;
-                                double valorLectura = 0.0;
+                            for (int j = 0; j < medicionNodes.getLength(); j++) {
+                                Node medicionNode = medicionNodes.item(j);
 
-                                Medicion medicion = new Medicion(valorReferencia, valorLectura);
-                                calibracion.getMediciones().add(medicion);
+                                if (medicionNode.getNodeType() == Node.ELEMENT_NODE) {
+                                    Element medicionElement = (Element) medicionNode;
+
+                                    double valorReferencia = Double.parseDouble(medicionElement.getElementsByTagName("valorReferencia").item(0).getTextContent());
+                                    double valorLectura = Double.parseDouble(medicionElement.getElementsByTagName("valorLectura").item(0).getTextContent());
+
+                                    Medicion medicion = new Medicion(valorReferencia, valorLectura);
+                                    calibracion.getMediciones().add(medicion);
+                                }
                             }
 
                             calibraciones.add(calibracion);
+
                         }
+
                     }
                 }
             }
         } catch (ParserConfigurationException | SAXException | IOException ex) {
             ex.printStackTrace();
         }
-
         return calibraciones;
     }
+
 
 
     // Function to find an Instrumento by its serie
