@@ -133,6 +133,43 @@ public class TipoInstrumentoXMLManager {
                 Element tipoInstrumentoElement = doc.createElement("tipoInstrumento");
                 tipoInstrumentoElement.appendChild(doc.createTextNode(instrumento.getTipoInstrumento().getCodigo()));
                 instrumentoElement.appendChild(tipoInstrumentoElement);
+
+                // Calibraciones
+                for (Calibracion calibracion : instrumento.getCalibracionList()) {
+                    Element calibracionElement = doc.createElement("calibracion");
+                    instrumentoElement.appendChild(calibracionElement);
+
+                    // Número
+                    Element numeroElement = doc.createElement("numero");
+                    numeroElement.appendChild(doc.createTextNode(String.valueOf(calibracion.getNumero())));
+                    calibracionElement.appendChild(numeroElement);
+
+                    // Fecha
+                    Element fechaElement = doc.createElement("fecha");
+                    fechaElement.appendChild(doc.createTextNode(calibracion.getFecha()));
+                    calibracionElement.appendChild(fechaElement);
+
+                    // CantidadMediciones
+                    Element cantidadMedicionesElement = doc.createElement("cantidadMediciones");
+                    cantidadMedicionesElement.appendChild(doc.createTextNode(String.valueOf(calibracion.getCantidadMediciones())));
+                    calibracionElement.appendChild(cantidadMedicionesElement);
+
+                    // Mediciones
+                    for (Medicion medicion : calibracion.getMediciones()) {
+                        Element medicionElement = doc.createElement("medicion");
+                        calibracionElement.appendChild(medicionElement);
+
+                        // ValorReferencia
+                        Element valorReferenciaElement = doc.createElement("valorReferencia");
+                        valorReferenciaElement.appendChild(doc.createTextNode(String.valueOf(medicion.getValorReferencia())));
+                        medicionElement.appendChild(valorReferenciaElement);
+
+                        // ValorLectura
+                        Element valorLecturaElement = doc.createElement("valorLectura");
+                        valorLecturaElement.appendChild(doc.createTextNode(String.valueOf(medicion.getValorLectura())));
+                        medicionElement.appendChild(valorLecturaElement);
+                    }
+                }
             }
 
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -148,6 +185,7 @@ public class TipoInstrumentoXMLManager {
             ex.printStackTrace();
         }
     }
+
 
     public static List<Instrumento> cargarInstrumentos(String filePath) {
         List<Instrumento> instrumentos = new ArrayList<>();
@@ -178,8 +216,53 @@ public class TipoInstrumentoXMLManager {
                         // En este punto, debes buscar el TipoInstrumento correspondiente en tu lista de TipoInstrumento cargada previamente
                         TipoInstrumento tipoInstrumento = obtenerTipoInstrumentoPorCodigo(tipoInstrumentoCodigo, "files/XMLData/TiposInstrumentos.xml");
 
+
+                        Instrumento instrumento = new Instrumento(serie, descripcion, tolerancia, maximo, minimo, tipoInstrumento);
                         if (tipoInstrumento != null) {
-                            Instrumento instrumento = new Instrumento(serie, descripcion, tolerancia, maximo, minimo, tipoInstrumento);
+                            // Crear una lista vacía para las calibraciones
+                            List<Calibracion> calibraciones = new ArrayList<>();
+
+                            // Obtener las calibraciones dentro del instrumento
+                            NodeList calibracionNodes = instrumentoElement.getElementsByTagName("calibracion");
+
+                            for (int j = 0; j < calibracionNodes.getLength(); j++) {
+                                Node calibracionNode = calibracionNodes.item(j);
+
+                                if (calibracionNode.getNodeType() == Node.ELEMENT_NODE) {
+                                    Element calibracionElement = (Element) calibracionNode;
+
+                                    int numero = Integer.parseInt(calibracionElement.getElementsByTagName("numero").item(0).getTextContent());
+                                    String fecha = calibracionElement.getElementsByTagName("fecha").item(0).getTextContent();
+                                    int cantidadMediciones = Integer.parseInt(calibracionElement.getElementsByTagName("cantidadMediciones").item(0).getTextContent());
+
+                                    // Obtener las mediciones dentro de la calibración
+                                    NodeList medicionNodes = calibracionElement.getElementsByTagName("medicion");
+                                    List<Medicion> mediciones = new ArrayList<>();
+
+                                    for (int k = 0; k < medicionNodes.getLength(); k++) {
+                                        Node medicionNode = medicionNodes.item(k);
+
+                                        if (medicionNode.getNodeType() == Node.ELEMENT_NODE) {
+                                            Element medicionElement = (Element) medicionNode;
+                                            double valorReferencia = Double.parseDouble(medicionElement.getElementsByTagName("valorReferencia").item(0).getTextContent());
+                                            double valorLectura = Double.parseDouble(medicionElement.getElementsByTagName("valorLectura").item(0).
+                                                    getTextContent());
+
+                                            // Crear y agregar la medicion a la lista de mediciones
+                                            Medicion medicion = new Medicion(valorReferencia, valorLectura);
+                                            mediciones.add(medicion);
+                                        }
+                                    }
+
+                                    // Crear y agregar la calibracion al instrumento
+                                    Calibracion calibracion = new Calibracion(numero, instrumento, fecha, cantidadMediciones, mediciones);
+                                    calibraciones.add(calibracion);
+                                }
+                            }
+
+                            // Crear el instrumento con sus calibraciones
+                            instrumento.setCalibracionList(calibraciones);
+
                             instrumentos.add(instrumento);
                         }
                     }

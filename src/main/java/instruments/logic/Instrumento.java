@@ -1,5 +1,8 @@
 package instruments.logic;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Instrumento {
     private String serie;
     private String descripcion;
@@ -7,6 +10,18 @@ public class Instrumento {
     private double maximo;
     private double minimo;
     private TipoInstrumento tipoInstrumento; // La referencia al TipoInstrumento asociado
+
+    private List<Calibracion> calibracionList;
+
+    public Instrumento(String serie, String descripcion, double tolerancia, double maximo, double minimo, TipoInstrumento tipoInstrumento, List<Calibracion> calibracionList) {
+        this.serie = serie;
+        this.descripcion = descripcion;
+        this.tolerancia = tolerancia;
+        this.maximo = maximo;
+        this.minimo = minimo;
+        this.tipoInstrumento = tipoInstrumento;
+        this.calibracionList = calibracionList;
+    }
 
     public Instrumento(String serie, String descripcion, double tolerancia, double maximo, double minimo, TipoInstrumento tipoInstrumento) {
         this.serie = serie;
@@ -18,7 +33,7 @@ public class Instrumento {
     }
 
     public Instrumento() {
-        this("", "", 0.0, 0.0, 0.0, null);
+        this("", "", 0.0, 0.0, 0.0, null, new ArrayList<>());
     }
 
     // Getters y setters para los atributos
@@ -78,5 +93,21 @@ public class Instrumento {
 
     public String getToleranciaAsString() {
         return String.valueOf(tolerancia);
+    }
+
+    public List<Calibracion> getCalibracionList() {
+        return calibracionList;
+    }
+
+    public void setCalibracionList(List<Calibracion> calibracionList) {
+        this.calibracionList = calibracionList;
+    }
+
+    public void agregarCalibracion(Calibracion calibracion) {
+        calibracionList.add(calibracion);
+    }
+
+    public void eliminarCalibracion(Calibracion calibracion) {
+        calibracionList.remove(calibracion);
     }
 }

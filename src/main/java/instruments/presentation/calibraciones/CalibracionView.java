@@ -13,9 +13,10 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.event.*;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.stream.Collectors;
 import javax.swing.JTable;
 
 
@@ -41,6 +42,11 @@ public class CalibracionView implements Observer {
     private JPanel medicionesButtonPanel;
     private JPanel calibracionesButtonPanel;
 
+    Date fechaActual;
+    String fechaFormateada = "";
+
+    boolean calibrationSelected = false;
+
 
     public CalibracionView() {
 
@@ -52,15 +58,25 @@ public class CalibracionView implements Observer {
                 medicionesPanel.setVisible(false);
                 deleteCalibraciones.setEnabled(false);
                 calibracionController.setLastSelectedInstrumento();
-                if(calibracionController.lastSelectedInstrumento != null){
+                if (calibracionController.lastSelectedInstrumento != null) {
                     panelText.setText(calibracionController.lastSelectedInstrumento.toString());
                     panelText.setForeground(Color.RED);
-                }else {
+                    // Carga las calibraciones del instrumento seleccionado
+                    cargarCalibracionesInstrumento(calibracionController.lastSelectedInstrumento);
+                } else {
                     panelText.setText("");
                 }
-
+                int newCalibrationNumber = generateUniqueCalibrationNumber();
+                numero.setText(String.valueOf(newCalibrationNumber));
+                numero.setEnabled(false);
+                fecha.setEnabled(false);
+                SimpleDateFormat formato = dateFormat();
+                fechaActual = new Date();
+                fechaFormateada = formato.format(fechaActual);
+                fecha.setText(fechaFormateada);
             }
         });
+
         deleteCalibraciones.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -84,43 +100,38 @@ public class CalibracionView implements Observer {
             public void actionPerformed(ActionEvent e) {
                 Calibracion calibracion = new Calibracion();
 
-                String numeroText = numero.getText();
+
                 String medicionesText = mediciones.getText();
                 ButtonUtils.verifyTextFields(numero, mediciones, fecha);
-                if (isNumeric(numeroText) || isNumeric(medicionesText)) {
-                    if(isNumeric(numeroText)){
-                        numero.setBackground(new Color(255, 163, 142));
-                    }
-                    if(isNumeric(medicionesText)){
-                        mediciones.setBackground(new Color(255, 163, 142));
-                    }
-                    JOptionPane.showMessageDialog(calibracionesPanel, "Coloque únicamente números en los campos de 'Número' y 'Mediciones'.", "Error", JOptionPane.ERROR_MESSAGE);
+
+                if (isNumeric(medicionesText)) {
+                    mediciones.setBackground(new Color(255, 163, 142));
+                    JOptionPane.showMessageDialog(calibracionesPanel, "Coloque únicamente números en el campo de 'Mediciones'.", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
-                calibracion.setFecha(fecha.getText());
-                calibracion.setNumero(Integer.parseInt(numeroText));
+                calibracion.setFecha(fechaFormateada);
+                calibracion.setNumero(Integer.parseInt(numero.getText()));
                 calibracion.setInstrumentoCalibrado(calibracionController.lastSelectedInstrumento);
                 calibracion.setCantidadMediciones(Integer.parseInt(medicionesText));
 
                 deleteCalibraciones.setEnabled(false);
 
                 try {
-                    if (numero.isEnabled()) {
+                    if(!calibrationSelected){
                         calibracionController.create(calibracion);
-                        calibracionController.update(calibracion);
-                    } else {
-                        calibracionController.update(calibracion);
+
                     }
-                    numero.setEnabled(true);
-                    ButtonUtils.clearFields(numero, fecha, mediciones);
-                    numero.setText("");
-                    fecha.setText("");
-                    mediciones.setText("");
+                    else {
+                        calibracionController.update(calibracion);
+                        ButtonUtils.clearFields(mediciones);
+
+                    }
+
+
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(calibracionesPanel, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
+                }}
         });
 
         searchCalibraciones.addActionListener(new ActionListener() {
@@ -140,10 +151,9 @@ public class CalibracionView implements Observer {
         clearCalibraciones.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ButtonUtils.clearFields(numero, mediciones, fecha, searchDescription);
-                ButtonUtils.fixColorTextFields(numero, mediciones, fecha);
+                ButtonUtils.clearFields(mediciones, searchDescription);
+                ButtonUtils.fixColorTextFields(mediciones);
                 deleteCalibraciones.setEnabled(false);
-                numero.setEnabled(true);
             }
         });
 
@@ -151,20 +161,17 @@ public class CalibracionView implements Observer {
         list.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                medicionesPanel.setVisible(true);
-                deleteCalibraciones.setEnabled(true);
-                numero.setEnabled(false);
-                enableEditing();
-            }
-        });
-
-        list.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                calibracionesButtonPanel.setVisible(true);
                 int selectedRow = list.getSelectedRow();
                 if (selectedRow >= 0) {
                     Calibracion selectedCalibracion = calibracionModel.getList().get(selectedRow);
+
+                    // Mostrar u ocultar el panel de mediciones si la calibración tiene datos
+                    boolean hasMediciones = !selectedCalibracion.getMediciones().isEmpty();
+                    medicionesPanel.setVisible(hasMediciones);
+
+                    deleteCalibraciones.setEnabled(true);
+                    numero.setEnabled(false);
+                    calibracionesButtonPanel.setVisible(true);
                     calibracionModel.setCurrent(selectedCalibracion); // Establece la calibración actual en el modelo
 
                     // Actualiza la tabla de mediciones
@@ -176,15 +183,20 @@ public class CalibracionView implements Observer {
                     ((AbstractTableModel) listMediciones.getModel()).fireTableDataChanged();
 
                     enableEditing();
-                    if(selectedCalibracion.getInstrumentoCalibrado() != null){
+                    calibrationSelected = true;
+                    if (selectedCalibracion.getInstrumentoCalibrado() != null) {
                         panelText.setText(selectedCalibracion.getInstrumentoCalibrado().toString());
                         panelText.setForeground(Color.RED);
-                    }else {
+                    } else {
                         panelText.setText("");
                     }
+                } else {
+                    medicionesPanel.setVisible(false);
+                    calibrationSelected = false;
                 }
             }
         });
+
 
 
 
@@ -268,16 +280,27 @@ public class CalibracionView implements Observer {
 
     CalibracionController calibracionController;
     CalibracionModel calibracionModel;
+
     @Override
     public void update(Observable updatedModel, Object properties) {
         int changedProps = (int) properties;
 
         if ((changedProps & CalibracionModel.LIST) == CalibracionModel.LIST) {
-            int[] cols = {CalibracionTableModel.NUMERO, CalibracionTableModel.FECHA, CalibracionTableModel.MEDICIONES};
-            list.setModel(new CalibracionTableModel(cols, calibracionModel.getList()));
-            list.setRowHeight(30);
-            TableColumnModel columnModel = list.getColumnModel();
-            columnModel.getColumn(1).setPreferredWidth(200); // Ajustar la anchura de la columna de descripción
+            // Obtén el instrumento seleccionado
+            Instrumento selectedInstrumento = calibracionController.lastSelectedInstrumento;
+
+            if (selectedInstrumento != null) {
+                // Filtra las calibraciones que pertenecen al instrumento seleccionado
+                List<Calibracion> calibracionesInstrumento = calibracionModel.getList().stream()
+                        .filter(calibracion -> calibracion.getInstrumentoCalibrado() == selectedInstrumento)
+                        .collect(Collectors.toList());
+
+                int[] cols = {CalibracionTableModel.NUMERO, CalibracionTableModel.FECHA, CalibracionTableModel.MEDICIONES};
+                list.setModel(new CalibracionTableModel(cols, calibracionesInstrumento));
+                list.setRowHeight(30);
+                TableColumnModel columnModel = list.getColumnModel();
+                columnModel.getColumn(1).setPreferredWidth(200); // Ajustar la anchura de la columna de descripción
+            }
         }
 
         // Verificar si el instrumento actual ha cambiado
@@ -286,16 +309,15 @@ public class CalibracionView implements Observer {
             listMediciones.setModel(new MedicionTableModel(colsMediciones, CalibracionModel.getCurrent().getMediciones(), calibracionModel));
             listMediciones.setRowHeight(30);
             TableColumnModel columnModelMediciones = listMediciones.getColumnModel();
-
         }
 
         TableCellEditor editor = new DefaultCellEditor(new JTextField());
         listMediciones.getColumnModel().getColumn(MedicionTableModel.VALOR_LECTURA).setCellEditor(editor);
         listMediciones.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
-
         this.calibracionesPanel.revalidate();
     }
+
 
 
     public void setCalibracionController(CalibracionController calibracionController) {
@@ -309,21 +331,36 @@ public class CalibracionView implements Observer {
 
     public void enableEditing() {
         deleteCalibraciones.setEnabled(true);
-        numero.setText(String.valueOf(CalibracionModel.getCurrent().getNumero()));
-        fecha.setText(CalibracionModel.getCurrent().getFecha());
         mediciones.setText(String.valueOf(CalibracionModel.getCurrent().getCantidadMediciones()));
 
     }
 
-    public List<TipoInstrumento> tipoInstrumentoList(){
-        return TipoInstrumentoXMLManager.cargarTiposInstrumento("files/XMLData/TiposInstrumentos.xml");
+    private int generateUniqueCalibrationNumber() {
+        Random random = new Random();
+        return random.nextInt(1000000) + 1;
+    }
+    private SimpleDateFormat dateFormat(){
+        return new  SimpleDateFormat("dd MMM, yyyy | HH:mm a");
+    }
+
+    private void cargarCalibracionesInstrumento(Instrumento instrumento) {
+        if (instrumento != null) {
+            List<Calibracion> calibracionesInstrumento = calibracionModel.getList().stream()
+                    .filter(calibracion -> calibracion.getInstrumentoCalibrado() == instrumento)
+                    .collect(Collectors.toList());
+
+            int[] cols = {CalibracionTableModel.NUMERO, CalibracionTableModel.FECHA, CalibracionTableModel.MEDICIONES};
+            list.setModel(new CalibracionTableModel(cols, calibracionesInstrumento));
+            list.setRowHeight(30);
+            TableColumnModel columnModel = list.getColumnModel();
+            columnModel.getColumn(1).setPreferredWidth(200);
+        }
     }
 
 
-
-    // Crear un editor de celdas personalizado para la columna "Valor de Lectura"
-
-
+    public List<TipoInstrumento> tipoInstrumentoList(){
+        return TipoInstrumentoXMLManager.cargarTiposInstrumento("files/XMLData/TiposInstrumentos.xml");
+    }
 
 
 }

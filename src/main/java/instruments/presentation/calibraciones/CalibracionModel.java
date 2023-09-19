@@ -66,9 +66,7 @@ public class CalibracionModel extends java.util.Observable {
     public void update(Calibracion calibracion) {
         int numero = calibracion.getNumero();
         String numeroStr = String.valueOf(numero);
-
         list.replaceAll(c -> String.valueOf(c.getNumero()).equals(numeroStr) ? calibracion : c);
-
         setChanged();
         notifyObservers(LIST);
     }
@@ -81,6 +79,7 @@ public class CalibracionModel extends java.util.Observable {
                 break;
             }
         }
+        update(current);
         changedProps |= CURRENT;
         commit();
     }

@@ -12,15 +12,11 @@ public class Data {
     private List<TipoInstrumento> tipos;
     private List<Instrumento> instrumentos;
 
-    private List<Calibracion> calibraciones;
-
     public Data() {
         tipos = new ArrayList<>();
         instrumentos = new ArrayList<>();
-        calibraciones = new ArrayList<>();
         cargarDatosDesdeXML();
         cargarInstrumentosDesdeXML();
-        cargarCalibracionesDesdeXML();
     }
 
     public List<TipoInstrumento> getTipos() {
@@ -30,9 +26,6 @@ public class Data {
     public List<Instrumento> getInstrumentos() {
         return instrumentos;
     }
-
-
-    public List<Calibracion> getCalibraciones() { return calibraciones; }
 
     public void addTipoInstrumento(TipoInstrumento tipo) {
         tipos.add(tipo);
@@ -75,14 +68,6 @@ public class Data {
     private void cargarInstrumentosDesdeXML() {
         try {
             this.instrumentos = TipoInstrumentoXMLManager.cargarInstrumentos("files/XMLData/Instrumentos.xml");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void cargarCalibracionesDesdeXML() {
-        try {
-            this.calibraciones = TipoInstrumentoXMLManager.cargarCalibraciones("files/XMLData/Calibraciones.xml", instrumentos);
         } catch (Exception e) {
             e.printStackTrace();
         }

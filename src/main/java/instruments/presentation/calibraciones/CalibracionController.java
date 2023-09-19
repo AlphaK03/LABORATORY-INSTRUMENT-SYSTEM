@@ -14,10 +14,6 @@ public class CalibracionController {
 
     Instrumento lastSelectedInstrumento;
 
-    public Instrumento getLastSelectedInstrumento() {
-        return lastSelectedInstrumento;
-    }
-
     public void setLastSelectedInstrumento() {
         this.lastSelectedInstrumento = Service.instance().getLastSelectedInstrumentoSelectInstrumento();
     }
@@ -47,22 +43,24 @@ public class CalibracionController {
     }
 
     public void delete(Calibracion calibracion) throws Exception {
-        Service.instance().deleteCalibracion(calibracion);
+        Service.instance().deleteCalibracion(calibracion, lastSelectedInstrumento);
         calibracionModel.delete(calibracion);
     }
 
     public void create(Calibracion calibracion) {
         try {
-            Service.instance().createCalibracion(calibracion);
+            Service.instance().createCalibracion(calibracion, lastSelectedInstrumento);
+            calibracionModel.init(lastSelectedInstrumento.getCalibracionList());
             calibracionModel.commit();
             saveData();
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
+
     }
 
     public void update(Calibracion calibracion) throws Exception {
-        Service.instance().updateCalibracion(calibracion);
+        Service.instance().updateCalibracion(calibracion, lastSelectedInstrumento);
         calibracionModel.update(calibracion);
         saveData();
     }

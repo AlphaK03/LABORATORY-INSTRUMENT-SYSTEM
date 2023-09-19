@@ -17,6 +17,13 @@ public class Calibracion {
         this.cantidadMediciones = cantidadMediciones;
         this.mediciones = mediciones;
     }
+    public Calibracion(int numero, String fecha, int cantidadMediciones, List<Medicion> mediciones) {
+        this.numero = numero;
+        this.fecha = fecha;
+        instrumentoCalibrado = new Instrumento();
+        this.cantidadMediciones = cantidadMediciones;
+        this.mediciones = mediciones;
+    }
 
     public Calibracion() {
         this(0, null, "", 0, new ArrayList<>());

@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <instrumentos>
     <instrumento>
-        <serie>11231</serie>
-        <descripcion>4143e</descripcion>
-        <tolerancia>3.0</tolerancia>
-        <maximo>45.0</maximo>
-        <minimo>0.0</minimo>
-        <tipoInstrumento>CRO</tipoInstrumento>
-    </instrumento>
-    <instrumento>
         <serie>002</serie>
         <descripcion>Mide Temperatura</descripcion>
         <tolerancia>0.0</tolerancia>
@@ -17,19 +9,133 @@
         <tipoInstrumento>TER</tipoInstrumento>
     </instrumento>
     <instrumento>
-        <serie>001</serie>
-        <descripcion>Mide tiempod</descripcion>
-        <tolerancia>0.0</tolerancia>
-        <maximo>0.0</maximo>
-        <minimo>90.0</minimo>
-        <tipoInstrumento>BAR</tipoInstrumento>
+        <serie>366</serie>
+        <descripcion>Mide nivel de Alcohol en la sangre</descripcion>
+        <tolerancia>100.0</tolerancia>
+        <maximo>100.0</maximo>
+        <minimo>0.0</minimo>
+        <tipoInstrumento>KEY</tipoInstrumento>
+        <calibracion>
+            <numero>332041</numero>
+            <fecha>18 sept, 2023 | 14:44 p. m.</fecha>
+            <cantidadMediciones>3</cantidadMediciones>
+            <medicion>
+                <valorReferencia>0.0</valorReferencia>
+                <valorLectura>0.0</valorLectura>
+            </medicion>
+            <medicion>
+                <valorReferencia>33.333333333333336</valorReferencia>
+                <valorLectura>0.0</valorLectura>
+            </medicion>
+            <medicion>
+                <valorReferencia>66.66666666666667</valorReferencia>
+                <valorLectura>0.0</valorLectura>
+            </medicion>
+        </calibracion>
+        <calibracion>
+            <numero>619705</numero>
+            <fecha>18 sept, 2023 | 15:09 p. m.</fecha>
+            <cantidadMediciones>4</cantidadMediciones>
+            <medicion>
+                <valorReferencia>0.0</valorReferencia>
+                <valorLectura>0.0</valorLectura>
+            </medicion>
+            <medicion>
+                <valorReferencia>25.0</valorReferencia>
+                <valorLectura>8888.0</valorLectura>
+            </medicion>
+            <medicion>
+                <valorReferencia>50.0</valorReferencia>
+                <valorLectura>0.0</valorLectura>
+            </medicion>
+            <medicion>
+                <valorReferencia>75.0</valorReferencia>
+                <valorLectura>0.0</valorLectura>
+            </medicion>
+        </calibracion>
+        <calibracion>
+            <numero>207274</numero>
+            <fecha>18 sept, 2023 | 15:38 p. m.</fecha>
+            <cantidadMediciones>1</cantidadMediciones>
+            <medicion>
+                <valorReferencia>0.0</valorReferencia>
+                <valorLectura>0.0</valorLectura>
+            </medicion>
+        </calibracion>
+        <calibracion>
+            <numero>302741</numero>
+            <fecha>18 sept, 2023 | 19:05 p. m.</fecha>
+            <cantidadMediciones>8</cantidadMediciones>
+            <medicion>
+                <valorReferencia>0.0</valorReferencia>
+                <valorLectura>0.0</valorLectura>
+            </medicion>
+            <medicion>
+                <valorReferencia>12.5</valorReferencia>
+                <valorLectura>0.0</valorLectura>
+            </medicion>
+            <medicion>
+                <valorReferencia>25.0</valorReferencia>
+                <valorLectura>0.0</valorLectura>
+            </medicion>
+            <medicion>
+                <valorReferencia>37.5</valorReferencia>
+                <valorLectura>0.0</valorLectura>
+            </medicion>
+            <medicion>
+                <valorReferencia>50.0</valorReferencia>
+                <valorLectura>0.0</valorLectura>
+            </medicion>
+            <medicion>
+                <valorReferencia>62.5</valorReferencia>
+                <valorLectura>0.0</valorLectura>
+            </medicion>
+            <medicion>
+                <valorReferencia>75.0</valorReferencia>
+                <valorLectura>0.0</valorLectura>
+            </medicion>
+            <medicion>
+                <valorReferencia>87.5</valorReferencia>
+                <valorLectura>0.0</valorLectura>
+            </medicion>
+        </calibracion>
     </instrumento>
     <instrumento>
-        <serie>888</serie>
-        <descripcion>fff</descripcion>
-        <tolerancia>1.0</tolerancia>
-        <maximo>90.0</maximo>
+        <serie>001</serie>
+        <descripcion>Mide tiempo</descripcion>
+        <tolerancia>2.0</tolerancia>
+        <maximo>300.0</maximo>
         <minimo>0.0</minimo>
-        <tipoInstrumento>BAR</tipoInstrumento>
+        <tipoInstrumento>CRO</tipoInstrumento>
+        <calibracion>
+            <numero>282617</numero>
+            <fecha>18 sept, 2023 | 15:08 p. m.</fecha>
+            <cantidadMediciones>3</cantidadMediciones>
+            <medicion>
+                <valorReferencia>0.0</valorReferencia>
+                <valorLectura>0.0</valorLectura>
+            </medicion>
+            <medicion>
+                <valorReferencia>100.0</valorReferencia>
+                <valorLectura>0.0</valorLectura>
+            </medicion>
+            <medicion>
+                <valorReferencia>200.0</valorReferencia>
+                <valorLectura>0.0</valorLectura>
+            </medicion>
+        </calibracion>
+        <calibracion>
+            <numero>462852</numero>
+            <fecha>18 sept, 2023 | 20:05 p. m.</fecha>
+            <cantidadMediciones>2</cantidadMediciones>
+            <medicion>
+                <valorReferencia>0.0</valorReferencia>
+                <valorLectura>0.0</valorLectura>
+            </medicion>
+            <medicion>
+                <valorReferencia>150.0</valorReferencia>
+                <valorLectura>0.0</valorLectura>
+            </medicion>
+        </calibracion>
     </instrumento>
 </instrumentos>

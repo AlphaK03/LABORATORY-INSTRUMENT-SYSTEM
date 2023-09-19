@@ -115,8 +115,11 @@ public class InstrumentosView implements Observer {
         clearInstrumentos.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ButtonUtils.clearFields(serie, descripcion, searchDescription, tolerancia, maximo, minimo);
-                ButtonUtils.fixColorTextFields(serie, descripcion, tolerancia, maximo, minimo);
+                ButtonUtils.clearFields(serie, descripcion, searchDescription, tolerancia);
+                ButtonUtils.fixColorTextFields(serie, descripcion);
+                maximo.setText("0.0");
+                minimo.setText("0.0");
+                tolerancia.setText("0.0");
                 deleteInstruments.setEnabled(false);
                 serie.setEnabled(true);
             }
@@ -225,6 +228,8 @@ public class InstrumentosView implements Observer {
         serie.setText(instrumentosModel.getCurrent().getSerie());
         descripcion.setText(instrumentosModel.getCurrent().getDescripcion());
         tolerancia.setText(instrumentosModel.getCurrent().getToleranciaAsString());
+        minimo.setText(String.valueOf(instrumentosModel.getCurrent().getMinimo()));
+        maximo.setText(String.valueOf(instrumentosModel.getCurrent().getMaximo()));
     }
 
     public void cleaningTextFields(){
