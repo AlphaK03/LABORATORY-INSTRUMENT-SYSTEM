@@ -42,7 +42,7 @@ public class InstrumentosView implements Observer {
 
     public InstrumentosView() {
 
-        List<TipoInstrumento> tiposInstrumento = tipoInstrumentoList();
+
 
         deleteInstruments.setEnabled(false);
 
@@ -57,6 +57,7 @@ public class InstrumentosView implements Observer {
                 instrumento.setMaximo(Double.parseDouble(maximo.getText()));
                 instrumento.setMinimo(Double.parseDouble(minimo.getText()));
 
+                List<TipoInstrumento> tiposInstrumento = tipoInstrumentoList();
                 // Asignar el TipoInstrumento asociado a este instrumento
                 TipoInstrumento tipoInstrumentoSeleccionado = null;
                 for (TipoInstrumento tipo : tiposInstrumento) {
@@ -282,6 +283,8 @@ public class InstrumentosView implements Observer {
     public List<TipoInstrumento> tipoInstrumentoList(){
         return TipoInstrumentoXMLManager.cargarTiposInstrumento("files/XMLData/TiposInstrumentos.xml");
     }
+
+
 
 
 }

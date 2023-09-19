@@ -9,6 +9,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
@@ -66,14 +67,7 @@ public class CalibracionView implements Observer {
                 } else {
                     panelText.setText("");
                 }
-                int newCalibrationNumber = generateUniqueCalibrationNumber();
-                numero.setText(String.valueOf(newCalibrationNumber));
-                numero.setEnabled(false);
-                fecha.setEnabled(false);
-                SimpleDateFormat formato = dateFormat();
-                fechaActual = new Date();
-                fechaFormateada = formato.format(fechaActual);
-                fecha.setText(fechaFormateada);
+                updateNumberAndDate();
             }
         });
 
@@ -127,8 +121,7 @@ public class CalibracionView implements Observer {
                         ButtonUtils.clearFields(mediciones);
 
                     }
-
-
+                    updateNumberAndDate();
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(calibracionesPanel, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }}
@@ -139,7 +132,7 @@ public class CalibracionView implements Observer {
             public void actionPerformed(ActionEvent e) {
                 try {
 
-                    ButtonUtils.fixColorTextFields(numero, fecha, mediciones);
+                    ButtonUtils.fixColorTextFields(mediciones);
                     Calibracion filter= new Calibracion();
                     filter.setNumero(Integer.parseInt(searchCalibraciones.getText()));
                     calibracionController.search(filter);
@@ -191,7 +184,6 @@ public class CalibracionView implements Observer {
                         panelText.setText("");
                     }
                 } else {
-                    medicionesPanel.setVisible(false);
                     calibrationSelected = false;
                 }
             }
@@ -300,6 +292,9 @@ public class CalibracionView implements Observer {
                 list.setRowHeight(30);
                 TableColumnModel columnModel = list.getColumnModel();
                 columnModel.getColumn(1).setPreferredWidth(200); // Ajustar la anchura de la columna de descripción
+            } else {
+                // Si no hay instrumento seleccionado, borra la lista de calibraciones
+                list.setModel(new DefaultTableModel());
             }
         }
 
@@ -317,6 +312,7 @@ public class CalibracionView implements Observer {
 
         this.calibracionesPanel.revalidate();
     }
+
 
 
 
@@ -362,5 +358,16 @@ public class CalibracionView implements Observer {
         return TipoInstrumentoXMLManager.cargarTiposInstrumento("files/XMLData/TiposInstrumentos.xml");
     }
 
+    void updateNumberAndDate(){
+        int newCalibrationNumber = generateUniqueCalibrationNumber();
+        numero.setText(String.valueOf(newCalibrationNumber));
+        numero.setEnabled(false);
+        fecha.setEnabled(false);
+        SimpleDateFormat formato = dateFormat();
+        fechaActual = new Date();
+        fechaFormateada = formato.format(fechaActual);
+        fecha.setText(fechaFormateada);
+        calibracionModel.commit();
+    }
 
 }

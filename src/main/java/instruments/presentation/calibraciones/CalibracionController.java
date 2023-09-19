@@ -16,6 +16,7 @@ public class CalibracionController {
 
     public void setLastSelectedInstrumento() {
         this.lastSelectedInstrumento = Service.instance().getLastSelectedInstrumentoSelectInstrumento();
+        calibracionModel.init(lastSelectedInstrumento.getCalibracionList());
     }
 
     public CalibracionController(CalibracionView view, CalibracionModel model) {
@@ -66,7 +67,6 @@ public class CalibracionController {
     }
 
     public void saveData() {
-       TipoInstrumentoXMLManager.guardarCalibraciones(calibracionModel.getList(), "files/XMLData/Calibraciones.xml");
     }
 
     public void generatePDFReport(List<Calibracion> calibracion) throws Exception {

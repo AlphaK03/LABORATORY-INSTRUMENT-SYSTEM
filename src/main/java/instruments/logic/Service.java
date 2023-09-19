@@ -170,23 +170,11 @@ public class Service {
     }
 
     public List<Calibracion> searchCalibracion(Calibracion filter) {
-        List<Calibracion> calibracionesEncontradas = new ArrayList<>();
-
-        List<Instrumento> instrumentos =data.getInstrumentos();
-
-        for (Instrumento instrumento : instrumentos) {
-            List<Calibracion> calibracionesDelInstrumento = instrumento.getCalibracionList();
-
-            List<Calibracion> calibracionesFiltradas = calibracionesDelInstrumento.stream()
-                    .filter(calibracion -> (filter.getNumero() == 0 || calibracion.getNumero() == filter.getNumero())
-                            // Agregar otras condiciones de filtro si son necesarias
-                    )
-                    .collect(Collectors.toList());
-
-            calibracionesEncontradas.addAll(calibracionesFiltradas);
-        }
-
-        return calibracionesEncontradas;
+        if (lastSelectedInstrumento == null){lastSelectedInstrumento = new Instrumento();}
+        return lastSelectedInstrumento.getCalibracionList().stream()
+                .filter(i -> String.valueOf(i.getNumero()).contains(String.valueOf(filter.getNumero())))
+                .sorted(Comparator.comparing(Calibracion::getNumero))
+                .collect(Collectors.toList());
     }
 
 
@@ -218,7 +206,7 @@ public class Service {
         for (Object obj : objects) {
             Field[] fields = obj.getClass().getDeclaredFields();
             for (Field field : fields) {
-                field.setAccessible(true); // Permitir el acceso a campos privados
+                field.setAccessible(true);
                 String propertyName = field.getName();
                 Object propertyValue = field.get(obj);
 

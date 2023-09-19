@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <calibraciones>
     <calibracion>
+        <numero>68857</numero>
+        <fecha>18 sept, 2023 | 21:08 p. m.</fecha>
+        <cantidadMediciones>3</cantidadMediciones>
+        <instrumentoCalibrado>002</instrumentoCalibrado>
+        <medicion>
+            <valorReferencia>0.0</valorReferencia>
+            <valorLectura>0.0</valorLectura>
+        </medicion>
+        <medicion>
+            <valorReferencia>0.0</valorReferencia>
+            <valorLectura>0.0</valorLectura>
+        </medicion>
+        <medicion>
+            <valorReferencia>0.0</valorReferencia>
+            <valorLectura>0.0</valorLectura>
+        </medicion>
+    </calibracion>
+    <calibracion>
         <numero>332041</numero>
         <fecha>18 sept, 2023 | 14:44 p. m.</fecha>
         <cantidadMediciones>3</cantidadMediciones>
@@ -11,7 +29,7 @@
         </medicion>
         <medicion>
             <valorReferencia>33.333333333333336</valorReferencia>
-            <valorLectura>0.0</valorLectura>
+            <valorLectura>0.99</valorLectura>
         </medicion>
         <medicion>
             <valorReferencia>66.66666666666667</valorReferencia>
@@ -29,7 +47,7 @@
         </medicion>
         <medicion>
             <valorReferencia>25.0</valorReferencia>
-            <valorLectura>78.0</valorLectura>
+            <valorLectura>8768.0</valorLectura>
         </medicion>
         <medicion>
             <valorReferencia>50.0</valorReferencia>
@@ -41,56 +59,56 @@
         </medicion>
     </calibracion>
     <calibracion>
-        <numero>207274</numero>
-        <fecha>18 sept, 2023 | 15:38 p. m.</fecha>
-        <cantidadMediciones>1</cantidadMediciones>
-        <instrumentoCalibrado>366</instrumentoCalibrado>
-        <medicion>
-            <valorReferencia>0.0</valorReferencia>
-            <valorLectura>0.0</valorLectura>
-        </medicion>
-    </calibracion>
-    <calibracion>
-        <numero>302741</numero>
-        <fecha>18 sept, 2023 | 19:05 p. m.</fecha>
-        <cantidadMediciones>8</cantidadMediciones>
-        <instrumentoCalibrado>366</instrumentoCalibrado>
+        <numero>462852</numero>
+        <fecha>18 sept, 2023 | 20:05 p. m.</fecha>
+        <cantidadMediciones>2</cantidadMediciones>
+        <instrumentoCalibrado>001</instrumentoCalibrado>
         <medicion>
             <valorReferencia>0.0</valorReferencia>
             <valorLectura>0.0</valorLectura>
         </medicion>
         <medicion>
-            <valorReferencia>12.5</valorReferencia>
-            <valorLectura>0.0</valorLectura>
-        </medicion>
-        <medicion>
-            <valorReferencia>25.0</valorReferencia>
-            <valorLectura>0.0</valorLectura>
-        </medicion>
-        <medicion>
-            <valorReferencia>37.5</valorReferencia>
-            <valorLectura>0.0</valorLectura>
-        </medicion>
-        <medicion>
-            <valorReferencia>50.0</valorReferencia>
-            <valorLectura>0.0</valorLectura>
-        </medicion>
-        <medicion>
-            <valorReferencia>62.5</valorReferencia>
-            <valorLectura>0.0</valorLectura>
-        </medicion>
-        <medicion>
-            <valorReferencia>75.0</valorReferencia>
-            <valorLectura>0.0</valorLectura>
-        </medicion>
-        <medicion>
-            <valorReferencia>87.5</valorReferencia>
+            <valorReferencia>150.0</valorReferencia>
             <valorLectura>0.0</valorLectura>
         </medicion>
     </calibracion>
     <calibracion>
-        <numero>282617</numero>
-        <fecha>18 sept, 2023 | 15:08 p. m.</fecha>
+        <numero>471535</numero>
+        <fecha>18 sept, 2023 | 21:09 p. m.</fecha>
+        <cantidadMediciones>7</cantidadMediciones>
+        <instrumentoCalibrado>001</instrumentoCalibrado>
+        <medicion>
+            <valorReferencia>0.0</valorReferencia>
+            <valorLectura>0.0</valorLectura>
+        </medicion>
+        <medicion>
+            <valorReferencia>42.857142857142854</valorReferencia>
+            <valorLectura>0.0</valorLectura>
+        </medicion>
+        <medicion>
+            <valorReferencia>85.71428571428571</valorReferencia>
+            <valorLectura>0.0</valorLectura>
+        </medicion>
+        <medicion>
+            <valorReferencia>128.57142857142856</valorReferencia>
+            <valorLectura>0.0</valorLectura>
+        </medicion>
+        <medicion>
+            <valorReferencia>171.42857142857142</valorReferencia>
+            <valorLectura>0.0</valorLectura>
+        </medicion>
+        <medicion>
+            <valorReferencia>214.28571428571428</valorReferencia>
+            <valorLectura>0.0</valorLectura>
+        </medicion>
+        <medicion>
+            <valorReferencia>257.1428571428571</valorReferencia>
+            <valorLectura>0.0</valorLectura>
+        </medicion>
+    </calibracion>
+    <calibracion>
+        <numero>113425</numero>
+        <fecha>19 sept, 2023 | 03:10 a. m.</fecha>
         <cantidadMediciones>3</cantidadMediciones>
         <instrumentoCalibrado>001</instrumentoCalibrado>
         <medicion>
@@ -107,16 +125,42 @@
         </medicion>
     </calibracion>
     <calibracion>
-        <numero>462852</numero>
-        <fecha>18 sept, 2023 | 20:05 p. m.</fecha>
-        <cantidadMediciones>2</cantidadMediciones>
-        <instrumentoCalibrado>001</instrumentoCalibrado>
+        <numero>324869</numero>
+        <fecha>19 sept, 2023 | 03:10 a. m.</fecha>
+        <cantidadMediciones>3</cantidadMediciones>
+        <instrumentoCalibrado>qqq</instrumentoCalibrado>
+        <medicion>
+            <valorReferencia>0.0</valorReferencia>
+            <valorLectura>12.0</valorLectura>
+        </medicion>
+        <medicion>
+            <valorReferencia>0.0</valorReferencia>
+            <valorLectura>20.0</valorLectura>
+        </medicion>
+        <medicion>
+            <valorReferencia>0.0</valorReferencia>
+            <valorLectura>0.0</valorLectura>
+        </medicion>
+    </calibracion>
+    <calibracion>
+        <numero>797340</numero>
+        <fecha>19 sept, 2023 | 03:12 a. m.</fecha>
+        <cantidadMediciones>4</cantidadMediciones>
+        <instrumentoCalibrado>qqq</instrumentoCalibrado>
         <medicion>
             <valorReferencia>0.0</valorReferencia>
             <valorLectura>0.0</valorLectura>
         </medicion>
         <medicion>
-            <valorReferencia>150.0</valorReferencia>
+            <valorReferencia>0.0</valorReferencia>
+            <valorLectura>0.0</valorLectura>
+        </medicion>
+        <medicion>
+            <valorReferencia>0.0</valorReferencia>
+            <valorLectura>0.0</valorLectura>
+        </medicion>
+        <medicion>
+            <valorReferencia>0.0</valorReferencia>
             <valorLectura>0.0</valorLectura>
         </medicion>
     </calibracion>
