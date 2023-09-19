@@ -1,28 +1,107 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <instrumentos>
     <instrumento>
-        <serie>1213</serie>
-        <descripcion>Mide la Temperatura</descripcion>
-        <tolerancia>0.0</tolerancia>
-        <maximo>90.0</maximo>
+        <serie>001</serie>
+        <descripcion>Mide el tiempo</descripcion>
+        <tolerancia>1.0</tolerancia>
+        <maximo>99.9</maximo>
         <minimo>0.0</minimo>
-        <tipoInstrumento>TER</tipoInstrumento>
+        <tipoInstrumento>CRO</tipoInstrumento>
         <calibracion>
-            <numero>292972</numero>
-            <fecha>19 sept, 2023 | 04:14 a. m.</fecha>
+            <numero>173075</numero>
+            <fecha>19 sept, 2023 | 17:41 p. m.</fecha>
+            <cantidadMediciones>1</cantidadMediciones>
+            <medicion>
+                <valorReferencia>0.0</valorReferencia>
+                <valorLectura>0.0</valorLectura>
+            </medicion>
+        </calibracion>
+        <calibracion>
+            <numero>778170</numero>
+            <fecha>19 sept, 2023 | 17:41 p. m.</fecha>
             <cantidadMediciones>2</cantidadMediciones>
             <medicion>
                 <valorReferencia>0.0</valorReferencia>
                 <valorLectura>0.0</valorLectura>
             </medicion>
             <medicion>
-                <valorReferencia>45.0</valorReferencia>
+                <valorReferencia>49.95</valorReferencia>
+                <valorLectura>0.0</valorLectura>
+            </medicion>
+        </calibracion>
+    </instrumento>
+    <instrumento>
+        <serie>003</serie>
+        <descripcion>Mide la Presión atmosférica</descripcion>
+        <tolerancia>1.0</tolerancia>
+        <maximo>100.0</maximo>
+        <minimo>0.0</minimo>
+        <tipoInstrumento>BAR</tipoInstrumento>
+        <calibracion>
+            <numero>666343</numero>
+            <fecha>19 sept, 2023 | 17:41 p. m.</fecha>
+            <cantidadMediciones>5</cantidadMediciones>
+            <medicion>
+                <valorReferencia>0.0</valorReferencia>
+                <valorLectura>0.0</valorLectura>
+            </medicion>
+            <medicion>
+                <valorReferencia>20.0</valorReferencia>
+                <valorLectura>0.0</valorLectura>
+            </medicion>
+            <medicion>
+                <valorReferencia>40.0</valorReferencia>
+                <valorLectura>0.0</valorLectura>
+            </medicion>
+            <medicion>
+                <valorReferencia>60.0</valorReferencia>
+                <valorLectura>0.0</valorLectura>
+            </medicion>
+            <medicion>
+                <valorReferencia>80.0</valorReferencia>
                 <valorLectura>0.0</valorLectura>
             </medicion>
         </calibracion>
         <calibracion>
-            <numero>821069</numero>
-            <fecha>19 sept, 2023 | 04:09 a. m.</fecha>
+            <numero>336251</numero>
+            <fecha>19 sept, 2023 | 17:41 p. m.</fecha>
+            <cantidadMediciones>6</cantidadMediciones>
+            <medicion>
+                <valorReferencia>0.0</valorReferencia>
+                <valorLectura>0.0</valorLectura>
+            </medicion>
+            <medicion>
+                <valorReferencia>16.666666666666668</valorReferencia>
+                <valorLectura>0.0</valorLectura>
+            </medicion>
+            <medicion>
+                <valorReferencia>33.333333333333336</valorReferencia>
+                <valorLectura>0.0</valorLectura>
+            </medicion>
+            <medicion>
+                <valorReferencia>50.0</valorReferencia>
+                <valorLectura>0.0</valorLectura>
+            </medicion>
+            <medicion>
+                <valorReferencia>66.66666666666667</valorReferencia>
+                <valorLectura>0.0</valorLectura>
+            </medicion>
+            <medicion>
+                <valorReferencia>83.33333333333334</valorReferencia>
+                <valorLectura>0.0</valorLectura>
+            </medicion>
+        </calibracion>
+    </instrumento>
+    <instrumento>
+        <serie>002</serie>
+        <descripcion>Mide la Temperatura</descripcion>
+        <tolerancia>2.0</tolerancia>
+        <maximo>90.0</maximo>
+        <minimo>0.0</minimo>
+        <tipoInstrumento>TER</tipoInstrumento>
+        <calibracion>
+            <numero>871230</numero>
+            <fecha>19 sept, 2023 | 17:41 p. m.</fecha>
             <cantidadMediciones>3</cantidadMediciones>
             <medicion>
                 <valorReferencia>0.0</valorReferencia>
@@ -34,31 +113,6 @@
             </medicion>
             <medicion>
                 <valorReferencia>60.0</valorReferencia>
-                <valorLectura>0.0</valorLectura>
-            </medicion>
-        </calibracion>
-    </instrumento>
-    <instrumento>
-        <serie>366</serie>
-        <descripcion>Mide nivel de Alcohol en la sangre</descripcion>
-        <tolerancia>0.0</tolerancia>
-        <maximo>100.0</maximo>
-        <minimo>0.0</minimo>
-        <tipoInstrumento>KEY</tipoInstrumento>
-        <calibracion>
-            <numero>526984</numero>
-            <fecha>18 sept, 2023 | 05:19 a. m.</fecha>
-            <cantidadMediciones>3</cantidadMediciones>
-            <medicion>
-                <valorReferencia>0.0</valorReferencia>
-                <valorLectura>0.0</valorLectura>
-            </medicion>
-            <medicion>
-                <valorReferencia>33.333333333333336</valorReferencia>
-                <valorLectura>0.0</valorLectura>
-            </medicion>
-            <medicion>
-                <valorReferencia>66.66666666666667</valorReferencia>
                 <valorLectura>0.0</valorLectura>
             </medicion>
         </calibracion>

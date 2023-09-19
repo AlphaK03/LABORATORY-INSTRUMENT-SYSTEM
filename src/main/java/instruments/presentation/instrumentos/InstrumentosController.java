@@ -75,4 +75,8 @@ public class InstrumentosController {
     public void onSelectInstrumento() {
         Service.instance().onSelectInstrumento(instrumentosModel.getCurrent());
     }
+
+    public Instrumento getSelectedInstrumento(){
+        return Service.instance().getLastSelectedInstrumentoSelectInstrumento();
+    }
 }

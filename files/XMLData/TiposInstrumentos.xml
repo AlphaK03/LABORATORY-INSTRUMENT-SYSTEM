@@ -8,12 +8,7 @@
     <tipo>
         <codigo>CRO</codigo>
         <nombre>Cronómetro</nombre>
-        <unidad>Milisegundos</unidad>
-    </tipo>
-    <tipo>
-        <codigo>KEY</codigo>
-        <nombre>Keylómetro</nombre>
-        <unidad>Kepi</unidad>
+        <unidad>Segundos</unidad>
     </tipo>
     <tipo>
         <codigo>TER</codigo>

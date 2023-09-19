@@ -42,20 +42,22 @@ public class InstrumentosView implements Observer {
 
     public InstrumentosView() {
 
-
-
         deleteInstruments.setEnabled(false);
 
         saveInstrumentos.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Instrumento instrumento = new Instrumento();
+                ButtonUtils.verifyTextFields(serie, descripcion, tolerancia, maximo, minimo);
 
                 instrumento.setSerie(serie.getText());
                 instrumento.setDescripcion(descripcion.getText());
+
                 instrumento.setTolerancia(Double.parseDouble(tolerancia.getText()));
                 instrumento.setMaximo(Double.parseDouble(maximo.getText()));
                 instrumento.setMinimo(Double.parseDouble(minimo.getText()));
+
+
 
                 List<TipoInstrumento> tiposInstrumento = tipoInstrumentoList();
                 // Asignar el TipoInstrumento asociado a este instrumento
@@ -70,6 +72,7 @@ public class InstrumentosView implements Observer {
                 deleteInstruments.setEnabled(false);
 
                 try {
+                    ButtonUtils.isNumeric(serie, tolerancia, minimo, maximo);
                     ButtonUtils.verifyTextFields(serie, descripcion, tolerancia, maximo, minimo);
 
                     if (serie.isEnabled()) {
@@ -107,6 +110,7 @@ public class InstrumentosView implements Observer {
                 if (selectedRow >= 0) {
                     instrumentosController.edit(selectedRow);
                     instrumentosController.onSelectInstrumento();
+                    comboBoxTipo.setToolTipText(instrumentosController.getSelectedInstrumento().getTipoInstrumento().getNombre());
 
                 }
             }
@@ -184,6 +188,7 @@ public class InstrumentosView implements Observer {
                 }
                 instrumentosController.saveData();
                 instrumentosController.onSelectInstrumento();
+                serie.setEnabled(true);
             }
         });
     }

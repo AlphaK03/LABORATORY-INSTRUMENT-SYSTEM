@@ -12,7 +12,7 @@ public class AcercaDe {
     private JTextField ANDRELRAMIREZSOLISTextField;
 
     public AcercaDe() {
-        textField1.setText(" JOSE SANCHEZ");
+        textField1.setText(" JOSE SANCHEZ SALAZAR");
         textField1.setEnabled(false);
         textArea1.setText(" ");
         textArea1.setEnabled(false);
