@@ -1,5 +1,6 @@
 package instruments;
 
+import instruments.presentation.acercaDe.AcercaDe;
 import instruments.presentation.calibraciones.CalibracionController;
 import instruments.presentation.calibraciones.CalibracionModel;
 import instruments.presentation.calibraciones.CalibracionView;
@@ -39,13 +40,12 @@ public class Application {
         CalibracionView calibracionView = new CalibracionView();
         CalibracionController calibracionController = new CalibracionController(calibracionView, calibracionModel);
 
-        JPanel acercaDePanel = new JPanel();
-
+        AcercaDe acercaDe = new AcercaDe();
 
 
         tabbedPane.addTab("Instrumentos", instrumentosView.getPanel());
         tabbedPane.addTab("Calibraciones", calibracionView.getCalibracionesPanel());
-        tabbedPane.addTab("Acerca de", acercaDePanel);
+        tabbedPane.addTab("Acerca de", acercaDe.getAcercaDePanel());
 
         window.getContentPane().add(tabbedPane);
 
