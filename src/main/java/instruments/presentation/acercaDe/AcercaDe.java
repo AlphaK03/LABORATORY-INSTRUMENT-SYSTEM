@@ -14,8 +14,6 @@ public class AcercaDe {
     public AcercaDe() {
         textField1.setText(" JOSE SANCHEZ SALAZAR");
         textField1.setEnabled(false);
-        textArea1.setText(" ");
-        textArea1.setEnabled(false);
         KEYLORJOSUÉCORTÉSCASCANTETextField.setEnabled(false);
         PABLOROJASVILLALOBOSTextField.setEnabled(false);
         ANDRELRAMIREZSOLISTextField.setEnabled(false);
