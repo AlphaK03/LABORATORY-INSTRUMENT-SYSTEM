@@ -56,7 +56,6 @@ public class CalibracionView implements Observer {
             @Override
             public void componentShown(ComponentEvent e) {
                 super.componentShown(e);
-                medicionesPanel.setVisible(false);
                 deleteCalibraciones.setEnabled(false);
                 calibracionController.setLastSelectedInstrumento();
                 if (calibracionController.lastSelectedInstrumento != null) {
@@ -134,7 +133,7 @@ public class CalibracionView implements Observer {
 
                     ButtonUtils.fixColorTextFields(mediciones);
                     Calibracion filter= new Calibracion();
-                    filter.setNumero(Integer.parseInt(searchCalibraciones.getText()));
+                    filter.setNumero(Integer.parseInt(searchDescription.getText()));
                     calibracionController.search(filter);
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(calibracionesPanel, ex.getMessage(), "Información", JOptionPane.INFORMATION_MESSAGE);

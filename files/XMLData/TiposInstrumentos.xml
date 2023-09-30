@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <tipos_instrumento>
     <tipo>
-        <codigo>BAR</codigo>
-        <nombre>Barómetro</nombre>
-        <unidad>PSI</unidad>
+        <codigo>tar</codigo>
+        <nombre>CTA</nombre>
+        <unidad>ASA</unidad>
     </tipo>
     <tipo>
         <codigo>CRO</codigo>
