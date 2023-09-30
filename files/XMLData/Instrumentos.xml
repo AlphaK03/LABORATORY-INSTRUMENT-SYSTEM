@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <instrumentos>
     <instrumento>
-        <serie>004</serie>
-        <descripcion>aa</descripcion>
+        <serie>001</serie>
+        <descripcion>222</descripcion>
+        <tolerancia>2.0</tolerancia>
+        <maximo>32.0</maximo>
+        <minimo>12.0</minimo>
+        <tipoInstrumento>TER</tipoInstrumento>
+    </instrumento>
+    <instrumento>
+        <serie>12</serie>
+        <descripcion>2ddd</descripcion>
         <tolerancia>0.0</tolerancia>
         <maximo>0.0</maximo>
         <minimo>0.0</minimo>
-        <tipoInstrumento>tar</tipoInstrumento>
+        <tipoInstrumento>CRO</tipoInstrumento>
     </instrumento>
 </instrumentos>

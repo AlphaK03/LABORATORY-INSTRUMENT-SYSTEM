@@ -110,7 +110,7 @@ public class InstrumentosView implements Observer {
                 if (selectedRow >= 0) {
                     instrumentosController.edit(selectedRow);
                     instrumentosController.onSelectInstrumento();
-                    comboBoxTipo.setToolTipText(instrumentosController.getSelectedInstrumento().getTipoInstrumento().getNombre());
+                    comboBoxTipo.setSelectedItem(instrumentosController.getSelectedInstrumento().getTipoInstrumento().getNombre());
 
                 }
             }
