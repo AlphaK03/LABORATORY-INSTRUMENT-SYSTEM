@@ -354,7 +354,7 @@ public class CalibracionView implements Observer {
 
 
     public List<TipoInstrumento> tipoInstrumentoList(){
-        return TipoInstrumentoXMLManager.cargarTiposInstrumento("files/XMLData/TiposInstrumentos.xml");
+        return XMLManager.cargarTiposInstrumento("files/XMLData/TiposInstrumentos.xml");
     }
 
     void updateNumberAndDate(){

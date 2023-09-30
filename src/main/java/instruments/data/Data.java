@@ -1,9 +1,8 @@
 package instruments.data;
 
-import instruments.logic.Calibracion;
 import instruments.logic.Instrumento;
 import instruments.logic.TipoInstrumento;
-import instruments.logic.TipoInstrumentoXMLManager;
+import instruments.logic.XMLManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +58,7 @@ public class Data {
 
     private void cargarDatosDesdeXML() {
         try {
-            this.tipos = TipoInstrumentoXMLManager.cargarTiposInstrumento("files/XMLData/TiposInstrumentos.xml");
+            this.tipos = XMLManager.cargarTiposInstrumento("files/XMLData/TiposInstrumentos.xml");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -67,7 +66,7 @@ public class Data {
 
     private void cargarInstrumentosDesdeXML() {
         try {
-            this.instrumentos = TipoInstrumentoXMLManager.cargarInstrumentos("files/XMLData/Instrumentos.xml");
+            this.instrumentos = XMLManager.cargarInstrumentos("files/XMLData/Instrumentos.xml");
         } catch (Exception e) {
             e.printStackTrace();
         }

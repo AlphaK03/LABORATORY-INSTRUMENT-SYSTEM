@@ -2,8 +2,7 @@ package instruments.presentation.instrumentos;
 
 import instruments.logic.Instrumento;
 import instruments.logic.Service;
-import instruments.logic.TipoInstrumento;
-import instruments.logic.TipoInstrumentoXMLManager;
+import instruments.logic.XMLManager;
 
 import java.util.List;
 
@@ -64,7 +63,7 @@ public class InstrumentosController {
     }
 
     public void saveData() {
-        TipoInstrumentoXMLManager.guardarInstrumentos(instrumentosModel.getList(), "files/XMLData/Instrumentos.xml");
+        XMLManager.guardarInstrumentos(instrumentosModel.getList(), "files/XMLData/Instrumentos.xml");
     }
 
     public void generatePDFReport(List<Instrumento> instrumentos) throws Exception {

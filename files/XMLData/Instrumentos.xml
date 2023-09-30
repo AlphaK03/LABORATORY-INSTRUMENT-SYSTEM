@@ -1,19 +1,49 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <instrumentos>
     <instrumento>
-        <serie>001</serie>
-        <descripcion>222</descripcion>
+        <serie>002</serie>
+        <descripcion>Mide temperatura</descripcion>
         <tolerancia>2.0</tolerancia>
-        <maximo>32.0</maximo>
-        <minimo>12.0</minimo>
-        <tipoInstrumento>TER</tipoInstrumento>
-    </instrumento>
-    <instrumento>
-        <serie>12</serie>
-        <descripcion>2ddd</descripcion>
-        <tolerancia>0.0</tolerancia>
-        <maximo>0.0</maximo>
+        <maximo>100.0</maximo>
         <minimo>0.0</minimo>
-        <tipoInstrumento>CRO</tipoInstrumento>
+        <tipoInstrumento>TER</tipoInstrumento>
+        <calibracion>
+            <numero>154516</numero>
+            <fecha>26 sept, 2023 | 17:34 p. m.</fecha>
+            <cantidadMediciones>4</cantidadMediciones>
+            <medicion>
+                <valorReferencia>0.0</valorReferencia>
+                <valorLectura>0.0</valorLectura>
+            </medicion>
+            <medicion>
+                <valorReferencia>25.0</valorReferencia>
+                <valorLectura>25.0</valorLectura>
+            </medicion>
+            <medicion>
+                <valorReferencia>50.0</valorReferencia>
+                <valorLectura>0.0</valorLectura>
+            </medicion>
+            <medicion>
+                <valorReferencia>75.0</valorReferencia>
+                <valorLectura>0.0</valorLectura>
+            </medicion>
+        </calibracion>
+        <calibracion>
+            <numero>259560</numero>
+            <fecha>30 sept, 2023 | 17:35 p. m.</fecha>
+            <cantidadMediciones>3</cantidadMediciones>
+            <medicion>
+                <valorReferencia>0.0</valorReferencia>
+                <valorLectura>0.0</valorLectura>
+            </medicion>
+            <medicion>
+                <valorReferencia>33.333333333333336</valorReferencia>
+                <valorLectura>33.3333333</valorLectura>
+            </medicion>
+            <medicion>
+                <valorReferencia>66.66666666666667</valorReferencia>
+                <valorLectura>0.0</valorLectura>
+            </medicion>
+        </calibracion>
     </instrumento>
 </instrumentos>

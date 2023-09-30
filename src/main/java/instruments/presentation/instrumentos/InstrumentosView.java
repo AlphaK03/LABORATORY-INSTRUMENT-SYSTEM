@@ -4,7 +4,7 @@ package instruments.presentation.instrumentos;
 import instruments.logic.ButtonUtils;
 import instruments.logic.Instrumento;
 import instruments.logic.TipoInstrumento;
-import instruments.logic.TipoInstrumentoXMLManager;
+import instruments.logic.XMLManager;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -286,7 +286,7 @@ public class InstrumentosView implements Observer {
 
 
     public List<TipoInstrumento> tipoInstrumentoList(){
-        return TipoInstrumentoXMLManager.cargarTiposInstrumento("files/XMLData/TiposInstrumentos.xml");
+        return XMLManager.cargarTiposInstrumento("files/XMLData/TiposInstrumentos.xml");
     }
 
 

@@ -1,7 +1,7 @@
 package instruments.presentation.tipos;
 import instruments.logic.Service;
 import instruments.logic.TipoInstrumento;
-import instruments.logic.TipoInstrumentoXMLManager;
+import instruments.logic.XMLManager;
 
 import java.util.List;
 
@@ -63,7 +63,7 @@ public class TiposController {
 
 
     public void saveData() {
-        TipoInstrumentoXMLManager.guardarTiposInstrumento(tiposModel.getList(), "files/XMLData/TiposInstrumentos.xml");
+        XMLManager.guardarTiposInstrumento(tiposModel.getList(), "files/XMLData/TiposInstrumentos.xml");
     }
 
 

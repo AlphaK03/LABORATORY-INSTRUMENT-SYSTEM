@@ -7,7 +7,6 @@ import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import instruments.data.Data;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
@@ -16,7 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TipoInstrumentoXMLManager {
+public class XMLManager {
 
     public static void guardarTiposInstrumento(List<TipoInstrumento> tipos, String filePath) {
         try {
