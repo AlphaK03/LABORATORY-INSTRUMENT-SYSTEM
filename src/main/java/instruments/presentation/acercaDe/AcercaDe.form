@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="panel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="766" height="452"/>
+      <xy x="20" y="20" width="814" height="452"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -43,7 +43,7 @@
               </component>
             </children>
           </grid>
-          <grid id="66bb1" layout-manager="GridLayoutManager" row-count="8" column-count="10" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="66bb1" layout-manager="GridLayoutManager" row-count="8" column-count="14" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -67,27 +67,9 @@
                   <text value="PROFESOR:"/>
                 </properties>
               </component>
-              <component id="87343" class="javax.swing.JTextField" binding="textField1" default-binding="true">
-                <constraints>
-                  <grid row="0" column="1" row-span="1" col-span="7" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                    <preferred-size width="150" height="-1"/>
-                  </grid>
-                </constraints>
-                <properties/>
-              </component>
-              <hspacer id="2c49d">
-                <constraints>
-                  <grid row="0" column="8" row-span="1" col-span="2" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                </constraints>
-              </hspacer>
-              <hspacer id="3377a">
-                <constraints>
-                  <grid row="1" column="8" row-span="3" col-span="2" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                </constraints>
-              </hspacer>
               <hspacer id="56091">
                 <constraints>
-                  <grid row="7" column="8" row-span="1" col-span="2" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="7" column="11" row-span="1" col-span="3" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
               </hspacer>
               <component id="121dd" class="javax.swing.JLabel">
@@ -116,9 +98,17 @@
                   <text value=""/>
                 </properties>
               </component>
+              <component id="87343" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+                <constraints>
+                  <grid row="0" column="2" row-span="1" col-span="5" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
               <component id="c0989" class="javax.swing.JTextField" binding="KEYLORJOSUÉCORTÉSCASCANTETextField" default-binding="true">
                 <constraints>
-                  <grid row="2" column="2" row-span="1" col-span="5" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                  <grid row="2" column="2" row-span="1" col-span="10" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
@@ -152,6 +142,11 @@
                   <text value=""/>
                 </properties>
               </component>
+              <hspacer id="516af">
+                <constraints>
+                  <grid row="2" column="12" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </hspacer>
             </children>
           </grid>
           <grid id="9e855" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
