@@ -1,22 +1,32 @@
 package instruments.data;
 
-import instruments.logic.Calibracion;
 import instruments.logic.Instrumento;
 import instruments.logic.TipoInstrumento;
-import instruments.logic.TipoInstrumentoXMLManager;
+import instruments.logic.XmlPersister;
+import jakarta.xml.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Data {
-    private List<TipoInstrumento> tipos;
+
+    @XmlElementWrapper(name = "instrumentos")
+    @XmlElement(name = "instrumento")
     private List<Instrumento> instrumentos;
+    @XmlElementWrapper(name = "tipos")
+    @XmlElement(name = "tipo")
+    private List<TipoInstrumento> tipos;
+
 
     public Data() {
-        tipos = new ArrayList<>();
-        instrumentos = new ArrayList<>();
-        cargarDatosDesdeXML();
-        cargarInstrumentosDesdeXML();
+        this.tipos = new ArrayList<>();
+        this.instrumentos = new ArrayList<>();
+    }
+
+    public Data(List<TipoInstrumento> tipos, List<Instrumento> instrumentos) {
+        this.tipos = tipos;
+        this.instrumentos = instrumentos;
     }
 
     public List<TipoInstrumento> getTipos() {
@@ -57,21 +67,21 @@ public class Data {
                 .orElse(null);
     }
 
-    private void cargarDatosDesdeXML() {
-        try {
-            this.tipos = TipoInstrumentoXMLManager.cargarTiposInstrumento("files/XMLData/TiposInstrumentos.xml");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void cargarInstrumentosDesdeXML() {
-        try {
-            this.instrumentos = TipoInstrumentoXMLManager.cargarInstrumentos("files/XMLData/Instrumentos.xml");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    private void cargarDatosDesdeXML() {
+//        try {
+//            this.tipos = XmlPersister.cargarTiposInstrumento("files/XMLData/TiposInstrumentos.xml");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    private void cargarInstrumentosDesdeXML() {
+//        try {
+//            this.instrumentos = XmlPersister.cargarInstrumentos("files/XMLData/Instrumentos.xml");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 
 }

@@ -5,16 +5,21 @@
  */
 package instruments.logic;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlID;
+
 import java.util.Objects;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class TipoInstrumento {
+    @XmlID
     String codigo;
     String nombre;
     String unidad;
 
     public TipoInstrumento() {
-        this("","","");
-    }    
+    }
 
     public TipoInstrumento(String codigo, String nombre, String unidad) {
         this.codigo = codigo;
@@ -47,7 +52,7 @@ public class TipoInstrumento {
     public void setUnidad(String unidad) {
         this.unidad = unidad;
     }
-    
+
     public String toString(){
         return this.nombre;
     }

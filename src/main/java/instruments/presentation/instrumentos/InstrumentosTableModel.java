@@ -24,9 +24,7 @@ public class InstrumentosTableModel extends AbstractTableModel implements javax.
     }
 
     public Class<?> getColumnClass(int col) {
-        switch (cols[col]){
-            default: return super.getColumnClass(col);
-        }
+        return super.getColumnClass(col);
     }
 
     public int getRowCount() {

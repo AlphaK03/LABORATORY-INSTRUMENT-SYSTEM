@@ -1,7 +1,9 @@
 package instruments.presentation.tipos;
 
+import instruments.logic.Service;
 import instruments.logic.TipoInstrumento;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observer;
 
@@ -27,6 +29,10 @@ public class TiposModel extends java.util.Observable{
 
 
     public TiposModel() {
+        this.list = Service.instance().getData().getTipos();
+        if(list == null){
+            this.list = new ArrayList<>();
+        }
     }
 
     public void init(List<TipoInstrumento> list){

@@ -3,11 +3,13 @@ package instruments.presentation.tipos;
 import instruments.logic.TipoInstrumento;
 
 import javax.swing.table.AbstractTableModel;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TableModel extends AbstractTableModel implements javax.swing.table.TableModel {
     List<TipoInstrumento> rows;
     int[] cols;
+
 
     public TableModel(int[] cols, List<TipoInstrumento> rows){
         this.cols=cols;
@@ -24,9 +26,7 @@ public class TableModel extends AbstractTableModel implements javax.swing.table.
     }
 
     public Class<?> getColumnClass(int col){
-        switch (cols[col]){
-            default: return super.getColumnClass(col);
-        }
+        return super.getColumnClass(col);
     }
 
     public int getRowCount() {

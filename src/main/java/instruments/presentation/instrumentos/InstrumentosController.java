@@ -2,8 +2,7 @@ package instruments.presentation.instrumentos;
 
 import instruments.logic.Instrumento;
 import instruments.logic.Service;
-import instruments.logic.TipoInstrumento;
-import instruments.logic.TipoInstrumentoXMLManager;
+import instruments.logic.XmlPersister;
 
 import java.util.List;
 
@@ -15,7 +14,7 @@ public class InstrumentosController {
 
 
     public InstrumentosController(InstrumentosView view, InstrumentosModel model) {
-        model.init(Service.instance().searchInstrumento(new Instrumento()));
+        model.init(Service.instance().getData().getInstrumentos());
         this.instrumentosView = view;
         this.instrumentosModel = model;
         view.setInstrumentosController(this);
@@ -49,7 +48,6 @@ public class InstrumentosController {
     public void create(Instrumento instrumento) {
         try {
             Service.instance().createInstrumento(instrumento);
-            instrumentosModel.getList().add(instrumento);
             instrumentosModel.commit();
             saveData();
         } catch (Exception ex) {
@@ -63,8 +61,8 @@ public class InstrumentosController {
         saveData();
     }
 
-    public void saveData() {
-        TipoInstrumentoXMLManager.guardarInstrumentos(instrumentosModel.getList(), "files/XMLData/Instrumentos.xml");
+    public void saveData() throws Exception {
+        Service.instance().saveData();
     }
 
     public void generatePDFReport(List<Instrumento> instrumentos) throws Exception {

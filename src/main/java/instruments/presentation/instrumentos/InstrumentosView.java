@@ -1,10 +1,7 @@
 package instruments.presentation.instrumentos;
 
 
-import instruments.logic.ButtonUtils;
-import instruments.logic.Instrumento;
-import instruments.logic.TipoInstrumento;
-import instruments.logic.TipoInstrumentoXMLManager;
+import instruments.logic.*;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -59,7 +56,7 @@ public class InstrumentosView implements Observer {
 
 
 
-                List<TipoInstrumento> tiposInstrumento = tipoInstrumentoList();
+                List<TipoInstrumento> tiposInstrumento = Service.instance().getData().getTipos();
                 // Asignar el TipoInstrumento asociado a este instrumento
                 TipoInstrumento tipoInstrumentoSeleccionado = null;
                 for (TipoInstrumento tipo : tiposInstrumento) {
@@ -136,7 +133,7 @@ public class InstrumentosView implements Observer {
             public void componentShown(ComponentEvent e) {
                 super.componentShown(e);
                 comboBoxTipo.removeAllItems();
-                List<TipoInstrumento> tiposInstrumento = tipoInstrumentoList();
+                List<TipoInstrumento> tiposInstrumento = Service.instance().getData().getTipos();
 
                 for (TipoInstrumento tipo : tiposInstrumento) {
                     comboBoxTipo.addItem(tipo.getNombre());
@@ -179,14 +176,24 @@ public class InstrumentosView implements Observer {
                 if (row >= 0) {
                     Instrumento instrumento = instrumentosModel.getList().get(row);
                     try {
-                        instrumentosController.delete(instrumento);
+                        if(instrumento.getCalibracionList().isEmpty()){
+                            instrumentosController.delete(instrumento);
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(panel, "El instrumento seleccionado contiene calibraciones.", "No Eliminado", JOptionPane.WARNING_MESSAGE);
+                        }
+
                     } catch (Exception ex) {
                         throw new RuntimeException(ex);
                     }
                 } else {
                     JOptionPane.showMessageDialog(panel, "No item selected.", "Warning", JOptionPane.WARNING_MESSAGE);
                 }
-                instrumentosController.saveData();
+                try {
+                    instrumentosController.saveData();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
                 instrumentosController.onSelectInstrumento();
                 serie.setEnabled(true);
             }
@@ -285,9 +292,9 @@ public class InstrumentosView implements Observer {
     }
 
 
-    public List<TipoInstrumento> tipoInstrumentoList(){
-        return TipoInstrumentoXMLManager.cargarTiposInstrumento("files/XMLData/TiposInstrumentos.xml");
-    }
+//    public List<TipoInstrumento> tipoInstrumentoList(){
+//        return XmlPersister.cargarTiposInstrumento("files/XMLData/TiposInstrumentos.xml");
+//    }
 
 
 

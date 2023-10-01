@@ -1,7 +1,7 @@
 package instruments.presentation.tipos;
 import instruments.logic.Service;
 import instruments.logic.TipoInstrumento;
-import instruments.logic.TipoInstrumentoXMLManager;
+import instruments.logic.XmlPersister;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ public class TiposController {
     TiposModel tiposModel;
 
     public TiposController(TiposView tiposView, TiposModel tiposModel) {
-        tiposModel.init(Service.instance().searchTipoInstrumento(new TipoInstrumento()));
+        tiposModel.init(Service.instance().getData().getTipos());
         this.tiposView = tiposView;
         this.tiposModel = tiposModel;
         tiposView.setController(this);
@@ -46,7 +46,6 @@ public class TiposController {
     public void create(TipoInstrumento tipoInstrumento) {
         try {
             Service.instance().createTipoInstrumento(tipoInstrumento);
-            tiposModel.getList().add(tipoInstrumento);
             tiposModel.commit();
             saveData();
         } catch (Exception ex) {
@@ -62,8 +61,8 @@ public class TiposController {
     }
 
 
-    public void saveData() {
-        TipoInstrumentoXMLManager.guardarTiposInstrumento(tiposModel.getList(), "files/XMLData/TiposInstrumentos.xml");
+    public void saveData() throws Exception {
+        Service.instance().saveData();
     }
 
 

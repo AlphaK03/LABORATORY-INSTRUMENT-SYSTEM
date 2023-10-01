@@ -96,7 +96,11 @@ public class TiposView implements Observer {
                     JOptionPane.showMessageDialog(panel, "No item selected.", "Warning", JOptionPane.WARNING_MESSAGE);
                 }
                 codigo.setEnabled(true);
-                tiposController.saveData();
+                try {
+                    tiposController.saveData();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         saveTiposInstrumentos.addActionListener(new ActionListener() {
@@ -131,9 +135,9 @@ public class TiposView implements Observer {
         clearTiposInstrumentos.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                    ButtonUtils.clearFields(codigo, unidad, nombre, searchNombre);
-                    ButtonUtils.fixColorTextFields(codigo, unidad, nombre, searchNombre);
-                    codigo.setEnabled(true);
+                ButtonUtils.clearFields(codigo, unidad, nombre, searchNombre);
+                ButtonUtils.fixColorTextFields(codigo, unidad, nombre, searchNombre);
+                codigo.setEnabled(true);
             }
         });
         report.addActionListener(new ActionListener() {

@@ -4,7 +4,6 @@ package instruments.presentation.calibraciones;
 import instruments.logic.Calibracion;
 import instruments.logic.Instrumento;
 import instruments.logic.Service;
-import instruments.logic.TipoInstrumentoXMLManager;
 
 import java.util.List;
 
@@ -66,7 +65,8 @@ public class CalibracionController {
         saveData();
     }
 
-    public void saveData() {
+    public void saveData() throws Exception {
+        Service.instance().saveData();
     }
 
     public void generatePDFReport(List<Calibracion> calibracion) throws Exception {

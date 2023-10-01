@@ -84,7 +84,11 @@ public class CalibracionView implements Observer {
                 } else {
                     JOptionPane.showMessageDialog(calibracionesPanel, "No item selected.", "Warning", JOptionPane.WARNING_MESSAGE);
                 }
-                calibracionController.saveData();
+                try {
+                    calibracionController.saveData();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 
@@ -168,7 +172,8 @@ public class CalibracionView implements Observer {
 
                     // Actualiza la tabla de mediciones
                     int[] colsMediciones = {MedicionTableModel.VALOR_REFERENCIA, MedicionTableModel.VALOR_LECTURA};
-                    listMediciones.setModel(new MedicionTableModel(colsMediciones, selectedCalibracion.getMediciones(), calibracionModel));
+                    listMediciones.setModel(new
+                            MedicionTableModel(colsMediciones, selectedCalibracion.getMediciones(), calibracionModel));
                     listMediciones.setRowHeight(30);
 
                     // Notifica a la tabla que los datos han cambiado
@@ -224,7 +229,11 @@ public class CalibracionView implements Observer {
                         }
                     }
                 }
-                calibracionController.saveData();
+                try {
+                    calibracionController.saveData();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 
@@ -353,9 +362,9 @@ public class CalibracionView implements Observer {
     }
 
 
-    public List<TipoInstrumento> tipoInstrumentoList(){
-        return TipoInstrumentoXMLManager.cargarTiposInstrumento("files/XMLData/TiposInstrumentos.xml");
-    }
+//    public List<TipoInstrumento> tipoInstrumentoList(){
+//        return XmlPersister.cargarTiposInstrumento("files/XMLData/TiposInstrumentos.xml");
+//    }
 
     void updateNumberAndDate(){
         int newCalibrationNumber = generateUniqueCalibrationNumber();

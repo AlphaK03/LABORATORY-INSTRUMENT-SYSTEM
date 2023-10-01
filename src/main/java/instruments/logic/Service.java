@@ -31,9 +31,17 @@ public class Service {
 
     private Data data;
 
+    public Data getData() {
+        return data;
+    }
+
     private Service() {
         medicionesList = new ArrayList<>();
-        data = new Data();
+        try {
+            data = XmlPersister.instance().load();
+        }catch (Exception ex){
+            data = new Data();
+        }
     }
 
     public List<Medicion> getMedicionesList() {
@@ -252,6 +260,10 @@ public class Service {
 
     public Instrumento getLastSelectedInstrumentoSelectInstrumento() {
         return  lastSelectedInstrumento;
+    }
+
+    public void saveData() throws Exception {
+        XmlPersister.instance().store(this.data);
     }
 }
 

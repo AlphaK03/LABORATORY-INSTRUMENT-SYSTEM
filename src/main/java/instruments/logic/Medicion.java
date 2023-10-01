@@ -1,5 +1,9 @@
 package instruments.logic;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Medicion {
     private double valorReferencia; // Valor de referencia que debió haber marcado
     private double valorLectura; // Valor de lectura que en realidad marcó
@@ -10,7 +14,9 @@ public class Medicion {
         this.valorLectura = valorLectura;
     }
 
-    // Getters y setters
+    public Medicion() {
+    }
+// Getters y setters
 
     public double getValorReferencia() {
         return valorReferencia;

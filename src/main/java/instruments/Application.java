@@ -60,9 +60,17 @@ public class Application {
         window.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                tiposController.saveData();
-                instrumentosController.saveData();
-               // calibracionController.saveData();
+                try {
+                    tiposController.saveData();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+                try {
+                    instrumentosController.saveData();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+                // calibracionController.saveData();
             }
         });
     }
